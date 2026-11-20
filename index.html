@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainModE：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainModE v0.1.4</title>
+<title>ChainModE v0.1.5</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -31,7 +31,7 @@
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.1.4</span></div>
+    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.1.5</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -66,7 +66,7 @@
         <div id="empty-hint" class="empty-hint" hidden>选择一个 CBT 文件，开始预览</div>
       </div></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h5V4M20 9h-5V4M4 15h5v5m11-5h-5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="transport">
-        <div class="play-row"><button id="play" class="primary" type="button" aria-keyshortcuts="Enter Space" disabled>播放</button><button id="restart" type="button" disabled>重来</button><button id="inline-retire" type="button" hidden>Retire</button><output id="time">0:00 / 0:00</output></div>
+        <div class="play-row"><button id="play" class="primary" type="button" aria-keyshortcuts="Enter Space" disabled>播放</button><button id="restart" type="button" disabled>重来</button><output id="time">0:00 / 0:00</output></div>
         <input id="timeline" type="range" min="0" max="1" step="0.001" value="0" aria-label="预览时间" disabled>
       </div>
     </section>
@@ -78,8 +78,8 @@
         <input id="music-volume" type="range" min="0" max="100" step="1" value="100" aria-label="音乐音量" disabled>
         <label class="slider-label" for="sound-volume"><span>音效音量</span><output id="sound-volume-value">100%</output></label>
         <input id="sound-volume" type="range" min="0" max="100" step="1" value="100" aria-label="音效音量" disabled>
-        <label class="slider-label" for="preview-rate"><span>预览速度</span><span class="number-unit"><input id="preview-rate-number" type="number" min="0.1" max="2" step="0.05" value="1" aria-label="预览速度数值" disabled>×</span></label>
-        <input id="preview-rate" type="range" min="0.1" max="2" step="0.05" value="1" aria-label="预览速度" disabled>
+        <label class="slider-label" for="preview-rate"><span>预览速度</span><span class="number-unit"><input id="preview-rate-number" type="number" min="0.50" max="2" step="0.05" value="1" aria-label="预览速度数值" disabled>×</span></label>
+        <input id="preview-rate" type="range" min="0.50" max="2" step="0.05" value="1" aria-label="预览速度" disabled>
         <label class="switch-row">保持音高<input id="preserve-pitch" type="checkbox" role="switch" checked disabled></label>
       </div></details>
       <details id="custom-preview-panel" class="settings-section" open><summary>自定义预览</summary><div class="section-content presets">
@@ -91,17 +91,12 @@
         <p id="preset-status" class="help" role="status" aria-live="polite" hidden></p>
       </div></details>
       <details id="other-settings-panel" class="settings-section" open><summary>其他设置</summary><div class="section-content">
-        <label class="switch-row">AUTO PLAY<input id="auto-play" type="checkbox" role="switch" disabled aria-describedby="auto-play-help"></label>
-        <p id="auto-play-help" class="help">切换后从头重新播放谱面。</p>
-        <label class="switch-row">原版暂停菜单<input id="original-pause" type="checkbox" role="switch" checked disabled></label>
+        <label class="switch-row">AUTO PLAY<input id="auto-play" type="checkbox" role="switch" disabled></label>
+        <label class="switch-row">EARLY / LATE<input id="early-late" type="checkbox" role="switch" checked disabled></label>
         <label class="switch-row">满血显示<input id="full-gauge" type="checkbox" role="switch" checked disabled></label>
       </div></details>
-      <p id="mode-info" class="audio-info">Hard Off · 游玩期间锁定设置</p>
-      <p id="record-info" class="audio-info" role="status">尚无本地成绩</p>
-      <p id="audio-info" class="audio-info" role="status">音乐在点击播放后载入。</p>
     </aside>
   </div>
-  <footer class="app-footer"><span>关闭 AUTO PLAY 后可在画面内触摸游玩</span><span>拖动进度会重置本轮成绩</span></footer>
   <details class="credits"><summary>素材与许可</summary><p>ChainBeeT 游戏画面及素材归原开发者所有。可选皮肤 Skin from Charwasp 来自 <a href="https://github.com/charwasp/skin" target="_blank" rel="noopener noreferrer">charwasp/skin</a>，按 CC BY-NC 4.0 使用。音频组件及 JSZip 的许可随文件内嵌。</p></details>
 </main>
 <output id="score" class="sr-only" aria-label="分数">0000000</output>
@@ -3761,6 +3756,7 @@ class PreviewRenderer {
     setFullGauge(value) {
         this.fullGauge = !!value;
     }
+    setTimingHints(value) { this.timingHints = !!value; }
     setJudgmentSession(session) { this.judgmentSession = session; }
     withGrayout(grayout, draw) {
         const previous = this.notes._chainModEGrayout;
@@ -4265,6 +4261,15 @@ class PreviewRenderer {
             const width = perfect[2] * scale;
             const height = perfect[3] * scale;
             drawFrame(this.hud, this.sceneAtlas, perfect, x - width / 2, this.height - 220 - height / 2, width, height);
+            if (this.timingHints && (hit.fastSlow === 1 || hit.fastSlow === 2)) {
+                // Foreground::showJudge: original FAST/SLOW sprite at y265,
+                // ScaleTo(.2, .9) from .63 with EaseBackOut; FadeOut(.1).
+                const name = hit.fastSlow === 1 ? "fast" : "slow";
+                const rect = this.assets.atlas.frames[this.assets.scene.foregroundLayer.timingText[name]];
+                const hintScale = Math.fround(.63) + (Math.fround(.9) - Math.fround(.63)) * easeBackOut;
+                const hintWidth = rect[2] * hintScale, hintHeight = rect[3] * hintScale;
+                drawFrame(this.hud, this.sceneAtlas, rect, x-hintWidth/2, this.height-265-hintHeight/2, hintWidth, hintHeight);
+            }
             if (hit.combo <= 0) continue;
             const text = String(hit.combo);
             const digitWidth = glyphWidth * scale;
@@ -4795,7 +4800,7 @@ const preview_model_js_1 = require("./preview-model.js");
 const preview_music_js_1 = require("./preview-music.js");
 exports.OFFICIAL_OPENING = require("./preview-ready-go.js").READY_GO;
 const OPENING_SECONDS = exports.OFFICIAL_OPENING.duration;
-exports.PREVIEW_RATE = { min: 0.1, max: 2, step: 0.05, initial: 1 };
+exports.PREVIEW_RATE = { min: 0.5, max: 2, step: 0.05, initial: 1 };
 function decodeHitSound(context, sound) {
     const { channels, frames, sampleRate } = sound;
     const bytes = Uint8Array.from(atob(sound.pcm16), character => character.charCodeAt(0));
@@ -5157,7 +5162,7 @@ const { RecordStore, chartRecordId, rankForScore } = require("./preview-records.
 const { nativeBonuses } = require("./preview-native-result.js");
 const { ResultRenderer } = require("./preview-result.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.1.4";
+const VERSION = "0.1.5";
 const E = id => {
     const node = document.getElementById(id);
     if (!node) throw new Error("缺少界面元素：" + id);
@@ -5243,7 +5248,7 @@ async function start() {
     const viewport = E("viewport"), stage = E("stage"), overlay = E("pause-overlay");
     const playButton = E("play"), restartButton = E("restart"), progress = E("timeline");
     const packageInput = E("cbt-file"), chartSelect = E("chart-select"), presetInput = E("preset-file");
-    const originalPause = E("original-pause"), fullGauge = E("full-gauge");
+    const earlyLate = E("early-late"), fullGauge = E("full-gauge");
     const autoPlay = E("auto-play");
     const modeSelect = E("mode-select");
     const readyCue = E("ready-cue"), goCue = E("go-cue"), sceneButton = E("scene-toggle");
@@ -5254,7 +5259,8 @@ async function start() {
     let drawFrames = 0, maxFrameGap = 0, lastFrameTime = null, maxDrawDuration = 0;
     let previousChartTime = null, maxChartStep = 0, maxRealStep = 0;
     const [sceneWidth, sceneHeight] = assets.scene.designSize;
-    originalPause.checked = preference.getItem("originalPause") !== "false";
+    earlyLate.checked = preference.getItem("earlyLate") !== "false";
+    renderer.setTimingHints(earlyLate.checked);
     modeSelect.value = round.mode;
     autoPlay.checked = round.free && preference.getItem("autoPlay") === "true";
     judgment.reset(null, autoPlay.checked);
@@ -5285,15 +5291,6 @@ async function start() {
     }
     window.addEventListener("resize", resize);
     globalThis.visualViewport?.addEventListener("resize", resize);
-    function recordText() {
-        if (!chart) return text(E("record-info"), "尚无本地成绩");
-        if (recordPending) return text(E("record-info"), "正在读取本地成绩…");
-        if (!recordId) return text(E("record-info"), "当前环境无法识别谱面成绩，结算仍可使用。");
-        const best = records.get(recordId), lamps = ["UNPLAYED", "FAILED", "CLEAR", "HARD CLEAR", "FULL COMBO", "ALL PERFECT"];
-        const info = best.clearType || best.score || best.queenAttempts ?
-            `${lamps[best.clearType]} · ${best.score} · MAX COMBO ${best.maxCombo}` : "尚无本地成绩";
-        text(E("record-info"), info + (round.mode === "queens-room" ? ` · 挑战 ${best.queenAttempts}` : ""));
-    }
     function resetGauge() {
         const previous = records.get(recordId);
         gauge.reset(round.mode, judgment.nodes.length, judgment.halfCount, previous.queenAttempts, fullGauge.checked);
@@ -5310,7 +5307,7 @@ async function start() {
         transport.pause(); transport.cursor = position; transport.state = "ended";
         judgment.clearInput(); requestedPause = false; pendingDeath = false;
         const recordable = round.recordable, clearType = gauge.result(judgment.counts);
-        const snapshot = { ...judgment.snapshot(), mode: round.mode, clearType, completed: round.mode === "queens-room" && gauge.hp > 0,
+        const snapshot = { ...judgment.snapshot(), fastSlow: earlyLate.checked, mode: round.mode, clearType, completed: round.mode === "queens-room" && gauge.hp > 0,
             death, rank: rankForScore(judgment.score), recordable, nonUnitRate: round.usedNonUnitRate };
         const saved = records.finish(recordId, snapshot);
         snapshot.saved = saved.saved; snapshot.newRecords = saved.flags;
@@ -5320,7 +5317,7 @@ async function start() {
             doubleReward: project.manifest.category?.pickup === true });
         round.end(); resultSnapshot = snapshot;
         resultRenderer.show(snapshot, performance.now()/1000, { title: project.manifest.title, difficulty: currentEntry().difficulty });
-        recordText();
+
     }
     function syncPolicy(menu = false) {
         const busy = loading || preparing, locked = round.locked, result = resultRenderer.active;
@@ -5329,20 +5326,12 @@ async function start() {
         packageInput.disabled = busy || locked;
         chartSelect.disabled = !project || busy || locked;
         modeSelect.disabled = busy || locked || importingPresets;
-        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "original-pause"])
+        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "early-late"])
             E(id).disabled = busy || locked;
         autoPlay.disabled = fullGauge.disabled = busy || !round.free;
         for (const part of ["background", "note", "label"]) E(part+"-preset").disabled = busy || importingPresets || !round.free;
         presetInput.disabled = busy || importingPresets || !round.free;
-        E("inline-retire").hidden = !round.active || transport.state !== "paused" || menu;
-        E("inline-retire").disabled = busy;
-        const name = MODES.find(m => m.id === round.mode).name;
-        let info = round.free ? "Free · 血条静止，可调整设置" : name + (locked ? " · 本轮设置已锁定，Retire 后可调整" : " · 外观固定，游玩期间锁定设置");
-        if (resultSnapshot) info += resultSnapshot.nonUnitRate ? " · 非 1×，本局不储存成绩" :
-            resultSnapshot.autoPlay ? " · AUTO PLAY，本局不储存成绩" : resultSnapshot.recordable ?
-                (resultSnapshot.saved ? " · 成绩已保存" : " · 成绩未能持久保存") : " · 进度已改变，本局不储存成绩";
-        else if (transport.playbackRate !== 1 || round.usedNonUnitRate) info += " · 非 1× 不储存成绩";
-        text(E("mode-info"), info);
+
     }
     function draw() {
         const now = performance.now()/1000;
@@ -5379,7 +5368,7 @@ async function start() {
         text(E("time"), timeText(position) + " / " + timeText(chart ? Math.max(transport.duration, position) : 0));
         progress.max = String(Math.max(transport.duration, position)); progress.value = String(position);
         const closing = !resultSnapshot && state === "countdown" && transport.openingElapsed() < MENU_EXIT_SECONDS;
-        const menu = !resultSnapshot && (state === "paused" && requestedPause && originalPause.checked || closing);
+        const menu = !resultSnapshot && (state === "paused" && requestedPause || closing);
         const wasHidden = overlay.hidden;
         overlay.hidden = !menu; overlay.classList.toggle("is-closing", closing);
         const layout = overlay.querySelector(".pause-layout");
@@ -5431,7 +5420,7 @@ async function start() {
         ++actionSerial; preparing = false; requestedPause = false;
         clearResult(); round.reset();
         transport.reset(chart); judgment.playbackRate = transport.playbackRate;
-        judgment.reset(chart, autoPlay.checked); score.reset(); resetGauge(); recordText(); draw();
+        judgment.reset(chart, autoPlay.checked); score.reset(); resetGauge(); draw();
     }
     function retire() {
         if (!chart || resultRenderer.active || loading || preparing) return false;
@@ -5466,16 +5455,15 @@ async function start() {
             recordId = id;
         }).catch(() => {}).finally(() => {
             if (serial !== recordSerial) return;
-            recordPending = false; if (!round.active) resetGauge(); recordText(); draw();
+            recordPending = false; if (!round.active) resetGauge(); draw();
         });
         chartSelect.value = id;
         text(E("track-title"), owner.manifest.title || "未命名谱面");
         const entry = currentEntry();
         const grade = [entry.difficulty, entry.level || ""].filter(String).join(" ") || "未标注难度";
         text(E("track-detail"), [owner.manifest.artist, grade, entry.noter ? "谱师 " + entry.noter : "", chart.scoreCount.toLocaleString("zh-CN") + " 个判定点"].filter(Boolean).join(" · "));
-        text(E("audio-info"), decoded ? "音乐已就绪。" : "音乐在点击播放后载入。");
         renderer.setTrackLabels(owner.manifest.title, entry.difficulty, round.free ? appearance.labelValue() : null);
-        recordText();
+
         draw();
     }
     function selectChart(id) {
@@ -5502,7 +5490,6 @@ async function start() {
             }
             loading = false;
             activate(owner, id, next);
-            if (owner.warnings.length) text(E("audio-info"), owner.warnings.join(" "));
             return true;
         } catch (cause) {
             if (serial === importSerial) showError("导入 CBT 失败。", cause);
@@ -5549,7 +5536,6 @@ async function start() {
             // Resume directly in the user's click before any decode/worker await.
             if (ctx.state !== "running") await ctx.resume();
             transport.setHitSound(ctx, assets.hitSound);
-            text(E("audio-info"), "正在解码 " + asset.path + "…");
             const buffer = await decodeAudio(asset, ctx);
             if (serial !== actionSerial || owner !== project || id !== activeId || document.hidden) {
                 if (asset !== activeAsset) { asset.decode.buffer = null; asset.decode.status = "idle"; }
@@ -5561,7 +5547,6 @@ async function start() {
                 transport.reset(chart, { context: ctx, buffer, bytes: asset.bytes });
                 if (!wasReady || position > 0) transport.pauseAt(position);
             }
-            text(E("audio-info"), "音乐已就绪 · " + asset.path);
             if (!round.active && transport.state === "ended") {
                 transport.reset(chart); judgment.reset(chart, autoPlay.checked); score.reset(); resetGauge();
             }
@@ -5572,7 +5557,7 @@ async function start() {
             requestedPause = false;
             return true;
         } catch (cause) {
-            if (serial === actionSerial) { transport.pause(); showError("音乐播放失败。", cause); text(E("audio-info"), "音乐未能播放，可重试或选择其他谱面。"); }
+            if (serial === actionSerial) { transport.pause(); showError("音乐播放失败。", cause); }
             return false;
         } finally {
             if (serial === actionSerial) { preparing = false; draw(); }
@@ -5581,7 +5566,7 @@ async function start() {
     function toggle() {
         if (resultRenderer.active) return;
         if (transport.state === "playing" || transport.waiting) pause(true);
-        else void play(requestedPause && originalPause.checked);
+        else void play(requestedPause);
     }
     function syncAppearance() {
         for (const part of ["background", "note", "label"]) {
@@ -5636,7 +5621,6 @@ async function start() {
     E("continue").addEventListener("click", () => { void play(true); });
     E("retry").addEventListener("click", () => { reset(); void play(); });
     E("retire").addEventListener("click", retire);
-    E("inline-retire").addEventListener("click", retire);
     E("result-retry").addEventListener("click", () => { if (resultRenderer.startRetry(performance.now()/1000)) draw(); });
     progress.addEventListener("input", () => {
         if (progress.disabled) return;
@@ -5662,7 +5646,7 @@ async function start() {
         modeSelect.value = round.mode; save("mode", round.mode);
         renderer.setFullGauge(fullGauge.checked);
         if (chart) reset(); else { judgment.reset(null, autoPlay.checked); resetGauge(); }
-        syncAppearance(); recordText(); draw(); return true;
+        syncAppearance(); draw(); return true;
     }
     modeSelect.addEventListener("change", () => setMode(modeSelect.value));
     function inputPosition(event) {
@@ -5746,11 +5730,14 @@ async function start() {
         catch (cause) { showError("无法切换保持音高。", cause); }
         syncRate();
     });
-    originalPause.addEventListener("change", () => {
-        if (round.locked) originalPause.checked = preference.getItem("originalPause") !== "false";
-        else save("originalPause", originalPause.checked);
-        draw();
-    });
+    function setEarlyLate(value) {
+        if (round.locked || loading || preparing) { earlyLate.checked = renderer.timingHints; return false; }
+        earlyLate.checked = !!value; renderer.setTimingHints(earlyLate.checked); save("earlyLate", earlyLate.checked);
+        if (resultSnapshot) resultSnapshot.fastSlow = earlyLate.checked;
+        if (resultRenderer.active) resultRenderer.snapshot.fastSlow = earlyLate.checked;
+        draw(); return true;
+    }
+    earlyLate.addEventListener("change", () => setEarlyLate(earlyLate.checked));
     fullGauge.addEventListener("change", () => {
         if (!round.free) { fullGauge.checked = false; draw(); return; }
         renderer.setFullGauge(fullGauge.checked); gauge.force(fullGauge.checked ? 1 : 0); save("fullGauge", fullGauge.checked); draw();
@@ -5764,12 +5751,13 @@ async function start() {
     window.addEventListener("pagehide", () => pause(false));
     window.addEventListener("pageshow", () => { resize(); draw(); });
     globalThis.ChainModE = Object.freeze({
-        version: VERSION, importPackage, selectChart, importPresets, setAutoPlay, setMode,
+        version: VERSION, importPackage, selectChart, importPresets, setAutoPlay, setMode, setEarlyLate,
         readState() {
             return { version: VERSION, chartId: activeId, chartIds: project ? Object.keys(project.manifest.charts) : [],
                 title: project?.manifest.title || "", state: transport.state, position: transport.position(), duration: chart ? transport.duration : 0,
                 score: score.value, scoreTarget: score.target, scoreCalculationEnabled: true, autoPlay: autoPlay.checked,
                 judgments: judgment.snapshot(), hiSpeed: hiSpeed.valueAsNumber,
+                earlyLate: earlyLate.checked, originalPauseMenu: true,
                 mode: round.mode, locked: round.locked, gauge: gauge.hp, displayedGauge: gauge.display, pressure: gauge.rawLevel,
                 record: recordId ? records.get(recordId) : null, result: resultSnapshot ? JSON.parse(JSON.stringify(resultSnapshot)) : null,
                 recordable: round.recordable, usedNonUnitRate: round.usedNonUnitRate,
