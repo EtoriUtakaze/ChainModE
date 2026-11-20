@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainModE：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainModE v0.2.0</title>
+<title>ChainModE v0.2.1</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -28,8 +28,9 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 .preview-plate.is-immersive .preview-window {flex:none;max-width:none;margin:0;}
 .preview-plate.is-immersive .viewport {width:100%;height:100%;}
 .immersive-placeholder {width:100%;pointer-events:none;}
-.immersive-exit {position:absolute;z-index:20;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;place-items:center;min-width:44px;height:44px;min-height:44px;padding:0 12px;border:1px solid #ffe3b950;border-radius:8px;background:#141018bb;color:#ffe3b9;touch-action:manipulation;font-size:14px;white-space:nowrap;}
-.fullscreen-notice {position:absolute;z-index:20;left:max(12px,env(safe-area-inset-left));top:max(12px,env(safe-area-inset-top));max-width:calc(100% - 170px);padding:9px 12px;border:1px solid #ffffff30;border-radius:7px;background:#141018e8;color:#f5effa;font-size:14px;line-height:1.5;pointer-events:none;}
+.immersive-exit {position:absolute;z-index:20;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #ffe3b950;border-radius:8px;background:#141018bb;color:#ffe3b9;touch-action:manipulation;}
+.performance-panel {position:absolute;z-index:12;top:8px;left:8px;width:min(324px,calc(100% - 16px));padding:8px 10px;border:1px solid #ffffff30;border-radius:6px;background:#100d17d9;color:#eeeaf3;font-size:14px;line-height:1.45;font-variant-numeric:tabular-nums;pointer-events:none;contain:layout style paint;}
+.performance-top {display:flex;justify-content:space-between;gap:12px;margin-bottom:4px;}.performance-top b {color:#f4c989;font-weight:600;}.performance-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px 16px;margin:0;}.performance-grid>div {display:flex;justify-content:space-between;gap:5px;min-width:0;}.performance-grid dt {color:#c8bfce;}.performance-grid dd {margin:0;white-space:nowrap;}.performance-counts {margin-top:4px;color:#c8bfce;font-size:13px;}.performance-options {border-top:1px solid var(--border);padding-top:4px;}.performance-actions {display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}.performance-actions button {padding:8px;font-size:14px;}.performance-status {display:block;margin-top:8px;color:var(--muted);font-size:13px;}
 
 .selection-row {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:450px;flex-shrink:0;max-width:50%;}.selection-row .chart-field {min-width:0;max-width:none;}.selection-row select {min-width:0;}#result-shade {mix-blend-mode:multiply;}#result-retry {position:absolute;background:transparent;border:0;border-radius:0;min-height:0;padding:0;opacity:1;}#result-retry:focus-visible {outline:2px solid #ffde95;outline-offset:2px;}#result-retry:hover {border:0;}#result-retry:disabled {opacity:1;}@media(max-width:760px) {.selection-row {width:100%;max-width:none;gap:10px;}.selection-row .chart-field {display:grid;grid-template-columns:minmax(0,1fr);gap:6px;}.selection-row select {padding-left:9px;font-size:14px;}}
 </style>
@@ -37,7 +38,7 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.2.0</span></div>
+    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.2.1</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -70,7 +71,16 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
           <button id="result-retry" type="button" aria-label="Retry" title="Retry" hidden></button>
         </div>
         <div id="empty-hint" class="empty-hint" hidden>选择一个 CBT 文件，开始预览</div>
-      </div></div><div id="fullscreen-notice" class="fullscreen-notice" role="status" hidden></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden>退出全屏</button></div>
+        <div id="performance-panel" class="performance-panel" role="group" aria-label="性能面板" aria-live="off" hidden>
+          <div class="performance-top"><span>FPS <b id="perf-fps">—</b></span><span>CPU <b id="perf-total">0.00 ms</b></span></div>
+          <dl class="performance-grid">
+            <div><dt>逻辑</dt><dd id="perf-logic">0.00 ms</dd></div><div><dt>背景</dt><dd id="perf-background">0.00 ms</dd></div>
+            <div><dt>Note</dt><dd id="perf-notes">0.00 ms</dd></div><div><dt>特效</dt><dd id="perf-effects">0.00 ms</dd></div>
+            <div><dt>HUD</dt><dd id="perf-hud">0.00 ms</dd></div><div><dt>最长间隔</dt><dd id="perf-interval">0.00 ms</dd></div>
+          </dl>
+          <div id="perf-counts" class="performance-counts">0 Note · 0 特效</div>
+        </div>
+      </div></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h5V4M20 9h-5V4M4 15h5v5m11-5h-5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="transport">
         <div class="play-row"><button id="play" class="primary" type="button" aria-keyshortcuts="Enter Space" disabled>播放</button><button id="restart" type="button" disabled>重来</button><output id="time">0:00 / 0:00</output></div>
         <input id="timeline" type="range" min="0" max="1" step="0.001" value="0" aria-label="预览时间" disabled>
@@ -100,6 +110,12 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
         <label class="switch-row">AUTO PLAY<input id="auto-play" type="checkbox" role="switch" disabled></label>
         <label class="switch-row">EARLY / LATE<input id="early-late" type="checkbox" role="switch" checked disabled></label>
         <label class="switch-row">满血显示<input id="full-gauge" type="checkbox" role="switch" checked disabled></label>
+        <label class="switch-row">性能检测<input id="performance-tracking" type="checkbox" role="switch" disabled></label>
+        <div id="performance-options" class="performance-options" hidden>
+          <label class="switch-row">显示面板<input id="performance-visible" type="checkbox" role="switch" checked disabled></label>
+          <div class="performance-actions"><button id="performance-export" type="button" disabled>导出报告</button><button id="performance-clear" type="button" disabled>清空记录</button></div>
+          <output id="performance-status" class="performance-status">尚无游玩样本</output>
+        </div>
       </div></details>
     </aside>
   </div>
@@ -3448,7 +3464,6 @@ class PreviewPage {
         this.window = this.pane.querySelector(".preview-window");
         this.viewport = this.pane.querySelector(".viewport");
         this.exitButton = this.plate.querySelector("#exit-immersive");
-        this.notice = this.plate.querySelector("#fullscreen-notice"); this.noticeTimer = null;
         this.active = false; this.rotated = false; this.mode = "inline"; this.serial = 0; this.frame = null;
         this.orientation = new StageOrientation(() => this.resize());
         this.fullscreen = new NativeFullscreen(document, () => this.fullscreenChanged(), options.fullscreenTiming);
@@ -3536,29 +3551,17 @@ class PreviewPage {
         if (this.fullscreen.state === "native") {
             styleChanged(document.body.style, {top:"0",left:"0",width:"100%",height:"100%"});
             this.mode = "native"; this.sync(); this.resize();
-            this.hideNotice();
             this.orientation.request(globalThis.screen?.orientation);
         } else if (this.fullscreen.state === "exited") this.leave();
         else if (this.fullscreen.state === "fallback") {
             this.mode = "viewport"; this.sync(); this.resize();
-            if (this.notice) {
-                this.hideNotice();
-                this.notice.textContent = "浏览器全屏未成功，当前已铺满网页。"; this.notice.hidden = false;
-                this.noticeTimer = this.fullscreen.later(() => { this.noticeTimer = null; this.notice.hidden = true; }, 5000);
-                this.noticeTimer?.unref?.();
-            }
         } else { this.mode = "requesting"; this.sync(); }
-    }
-    hideNotice() {
-        if (this.noticeTimer !== null) this.fullscreen.cancel(this.noticeTimer);
-        this.noticeTimer = null;
-        if (this.notice) this.notice.hidden = true;
     }
     exit() { this.leave(); }
     leave() {
         if (!this.active) return;
         this.serial++; this.active = false; this.rotated = false; this.mode = "inline";
-        this.fullscreen.close(); this.hideNotice();
+        this.fullscreen.close();
         this.orientation.stop();
         if (this.frame !== null) cancelAnimationFrame(this.frame);
         this.frame = null;
@@ -3581,10 +3584,10 @@ class PreviewPage {
         this.options.onChange?.(false);
     }
     sync() {
-        const label = !this.active ? "全屏" : this.mode === "native" ? "退出全屏" : this.mode === "requesting" ? "取消全屏请求" : "退出网页铺满";
-        this.button.textContent = label; this.exitButton.textContent = label;
-        this.exitButton.setAttribute("aria-label", label); this.exitButton.setAttribute("title", label);
-        this.button.title = this.active ? label : "沉浸式全屏";
+        this.button.textContent = this.active ? "退出全屏" : "全屏";
+        this.button.title = this.active ? "退出沉浸式全屏" : "沉浸式全屏";
+        this.exitButton.setAttribute("aria-label", "退出全屏");
+        this.exitButton.setAttribute("title", "退出全屏");
         this.button.setAttribute("aria-label", this.button.title);
         this.button.setAttribute("aria-pressed", String(this.active));
         this.plate.dataset.fullscreenMode = this.mode;
@@ -3629,42 +3632,225 @@ class PreviewPage {
 exports.PreviewPage = PreviewPage;
 
 });
+define('./preview-performance-panel.js', (exports, require) => {
+"use strict";
+const set = (node, key, value) => { if(node[key]!==value)node[key]=value; };
+class PerformancePanel {
+    constructor({profiler, nodes, readContext, download}) {
+        this.profiler=profiler; this.nodes=nodes; this.readContext=readContext; this.download=download;
+        this.visible=true; this.running=false; this.nextUpdate=0; this.context=null;
+        nodes.tracking.addEventListener("change",()=>this.setEnabled(nodes.tracking.checked));
+        nodes.visible.addEventListener("change",()=>{this.visible=nodes.visible.checked;this.refresh();});
+        nodes.clear.addEventListener("click",()=>{if(!this.running){profiler.reset();this.context=profiler.enabled?this.readContext():null;this.refresh();}});
+        nodes.export.addEventListener("click",()=>{if(!this.running&&profiler.frames)this.download(this.report());});
+        this.refresh();
+    }
+    setEnabled(value) {
+        this.profiler.setEnabled(value); if(value)this.context=this.readContext();
+        this.nodes.tracking.checked=!!value; this.nextUpdate=0; this.refresh();
+    }
+    startRun() {
+        if(!this.profiler.enabled)return;
+        this.profiler.reset(); this.context=this.readContext(); this.nextUpdate=0; this.refresh();
+    }
+    update(time, running) {
+        const changed=this.running!==running;this.running=running;
+        if(!this.profiler.enabled) { if(changed)this.refresh(); return; }
+        if(changed){this.refresh();this.nextUpdate=time+500;return;}
+        if(!this.visible||time<this.nextUpdate)return;
+        this.nextUpdate=time+500; this.paint();
+    }
+    refresh() {
+        const {nodes,profiler}=this;
+        // A transition to results is painted just before end() commits the
+        // current sample. The event handler cannot run until that commit ends.
+        const frames=profiler.frames+(profiler.frameActive?1:0);
+        set(nodes.options,"hidden",!profiler.enabled&&!frames);
+        set(nodes.panel,"hidden",!profiler.enabled||!this.visible);
+        set(nodes.export,"disabled",this.running||!frames);
+        set(nodes.clear,"disabled",this.running||!frames);
+        set(nodes.status,"textContent",!frames?"尚无游玩样本":`已记录 ${frames} 帧`);
+        if(profiler.enabled&&this.visible)this.paint();
+    }
+    paint() {
+        const s=this.profiler.quick(),m=s.milliseconds,c=s.counters,n=this.nodes;
+        const ms=value=>value.toFixed(2);
+        set(n.fps,"textContent",s.fps===null?"—":s.fps.toFixed(1));
+        set(n.interval,"textContent",ms(s.maxInterval)+" ms");
+        set(n.total,"textContent",ms(m.total)+" ms");
+        set(n.logic,"textContent",ms(m.logic)+" ms");
+        set(n.background,"textContent",ms(m.background)+" ms");
+        set(n.notes,"textContent",ms(m.notes)+" ms");
+        set(n.effects,"textContent",ms(m.effects)+" ms");
+        set(n.hud,"textContent",ms(m.hud)+" ms");
+        set(n.counts,"textContent",`${c.notes} Note · ${c.bursts+c.sustains} 特效`);
+    }
+    report() {
+        return {format:"ChainModE-performance-v1",createdAt:new Date().toISOString(),
+            context:this.context,current:this.readContext(),
+            measurement:{unit:"milliseconds",scope:"Only scheduled requestAnimationFrame callbacks entering the playing state; opening, pause, results, and synchronous UI redraws are excluded.",
+                fps:"Estimated from main-thread callback intervals, not confirmed displayed frames or screen refresh rate.",
+                timings:"JavaScript and Canvas command submission. Does not measure complete GPU, raster, or compositor time.",
+                counters:"Logical Note/body/chord/effect counts; effectImages counts submitted effect images, not GPU draw calls.",
+                window:"Last 600 samples; totals cover this capture. Timeline retains up to 600 one-second sampled-time buckets; worstFrames retains the 32 largest max(interval,cpu).",
+                gaps:"Fixed interval thresholds are descriptive counts, not a claim of missed display frames.",
+                monitor:"Timed CPU work includes intermediate sampling and panel updates, but excludes final numeric bookkeeping in end(). Frame intervals include both. During steady play the panel updates at most twice per second. Percentiles/export run only on explicit request.",
+                attribution:"An interval ends at the current callback start; the preceding frame may have caused it. Worst frames include preceding-frame CPU phases and counts, without claiming GPU attribution.",
+                delivery:"Local download only. No automatic upload or persistent per-frame storage."},
+            performance:this.profiler.snapshot()};
+    }
+}
+exports.PerformancePanel=PerformancePanel;
+
+});
 define('./preview-performance.js', (exports, require) => {
 "use strict";
-// Opt-in diagnostics. Storage is bounded; percentiles are calculated on request,
-// never while drawing. Disabled tracking performs no clock reads or allocations.
+const PHASES = ["logic", "background", "notes", "effects", "hud", "interfaceAndResult", "monitor"];
+const COUNTERS = ["notes", "dots", "bodies", "chords", "bursts", "sustains", "effectImages", "judged", "touches", "backgroundUpdates"];
+// Bounded numeric rings. No browser performance entries, pixel readbacks,
+// storage writes, or per-frame logs. Disabled sampling never reads the clock.
 class FrameProfiler {
     constructor(now = () => performance.now(), capacity = 600) {
         this.now = now; this.capacity = capacity; this.enabled = false; this.reset();
     }
-    reset() { this.frames = 0; this.series = new Map(); this.previousStart = null; }
-    setEnabled(value) { this.enabled = !!value; this.reset(); }
-    sample(name, value) {
-        let series = this.series.get(name);
-        if (!series) this.series.set(name, series = {values:new Float64Array(this.capacity), count:0});
-        series.values[series.count++ % this.capacity] = value;
+    reset() {
+        this.frames = 0; this.series = new Map(); this.counterSeries = new Map();
+        this.previousStart = null; this.frameActive = false; this.elapsed = 0;
+        this.currentPhases = new Float64Array(PHASES.length);
+        this.currentCounters = Object.fromEntries(COUNTERS.map(name => [name, 0]));
+        this.timeline = []; this.timelineIndex = 0; this.bucket = null;
+        this.rowSize = 5 + PHASES.length + COUNTERS.length;
+        this.previousFrame = new Float64Array(this.rowSize); this.previousFrameValid = false;
+        this.worst = Array.from({length:32}, () => new Float64Array(2*this.rowSize));
+        this.worstCount = 0; this.worstIndex = 0; this.worstThreshold = 0;
+        this.over25 = 0; this.over50 = 0; this.over100 = 0;
+        if (this.enabled) {
+            for (const name of ["frameInterval", ...PHASES, "notesAndEffects", "total"]) this.series.set(name, this.newSeries());
+            for (const name of COUNTERS) this.counterSeries.set(name, this.newSeries());
+        }
     }
-    begin(time) {
-        if (!this.enabled) return;
-        if (this.previousStart !== null) this.sample("frameInterval", time-this.previousStart);
-        this.previousStart = this.start = this.last = time;
+    newSeries() { return {values:new Float64Array(this.capacity), count:0, sum:0, windowSum:0, max:0}; }
+    setEnabled(value) {
+        value = !!value;
+        if (value === this.enabled) return;
+        this.enabled = value;
+        if (value) this.reset();
+        else { this.frameActive = false; this.previousStart = null; this.previousFrameValid = false; }
+    }
+    append(series, value) {
+        const index = series.count % this.capacity;
+        if (series.count >= this.capacity) series.windowSum -= series.values[index];
+        series.values[index] = value; series.count++; series.sum += value; series.windowSum += value;
+        if (value > series.max) series.max = value;
+    }
+    sample(name, value) {
+        if (!Number.isFinite(value) || value < 0) return;
+        let series = this.series.get(name);
+        if (!series) this.series.set(name, series = this.newSeries());
+        this.append(series, value);
+    }
+    begin(time, active = true) {
+        if (!this.enabled) return false;
+        this.frameActive = !!active;
+        if (!active) { this.previousStart = null; this.previousFrameValid = false; return false; }
+        this.interval = this.previousStart === null ? null : Math.max(0, time-this.previousStart);
+        if (this.interval !== null) {
+            this.sample("frameInterval", this.interval); this.elapsed += this.interval;
+            if (this.interval > 25) this.over25++;
+            if (this.interval > 50) this.over50++;
+            if (this.interval > 100) this.over100++;
+        }
+        this.previousStart = this.start = this.last = time; this.position = null;
+        this.currentPhases.fill(0);
+        for (const name of COUNTERS) this.currentCounters[name] = 0;
+        return true;
     }
     mark(name) {
-        if (!this.enabled) return;
-        const now = this.now(); this.sample(name, now-this.last); this.last = now;
+        if (!this.frameActive) return;
+        const now = this.now(), duration = Math.max(0, now-this.last);
+        this.sample(name, duration); this.last = now;
+        const index = PHASES.indexOf(name);
+        if (index !== -1) this.currentPhases[index] += duration;
     }
     end() {
-        if (!this.enabled) return;
-        this.sample("total", this.now()-this.start); this.frames++;
+        if (!this.frameActive) return;
+        const total = Math.max(0, this.now()-this.start);
+        this.sample("total", total);
+        if (this.currentPhases[3] || this.currentPhases[2]) this.sample("notesAndEffects", this.currentPhases[2]+this.currentPhases[3]);
+        for (const name of COUNTERS) this.append(this.counterSeries.get(name), this.currentCounters[name]);
+        this.frames++;
+        this.aggregate(total); this.rememberWorst(total); this.frameActive = false;
+    }
+    aggregate(total) {
+        const second = Math.floor(this.elapsed/1000);
+        if (!this.bucket || this.bucket.second !== second) {
+            this.bucket = {second, from:this.position, to:this.position, frames:0, intervalSamples:0, intervalSum:0,
+                maxInterval:0, cpuSum:0, maxCpu:0, over25:0, over50:0, over100:0,
+                phaseSums:new Float64Array(PHASES.length), phaseMax:new Float64Array(PHASES.length),
+                counterSums:new Float64Array(COUNTERS.length), counterMax:new Float64Array(COUNTERS.length)};
+            this.timeline[this.timelineIndex++ % 600] = this.bucket;
+        }
+        const b = this.bucket;
+        b.to = this.position; b.frames++; b.cpuSum += total; b.maxCpu = Math.max(b.maxCpu, total);
+        if (this.interval !== null) {
+            b.intervalSamples++; b.intervalSum += this.interval; b.maxInterval = Math.max(b.maxInterval, this.interval);
+            if (this.interval > 25) b.over25++;
+            if (this.interval > 50) b.over50++;
+            if (this.interval > 100) b.over100++;
+        }
+        for (let i=0;i<PHASES.length;i++) { b.phaseSums[i] += this.currentPhases[i]; b.phaseMax[i] = Math.max(b.phaseMax[i],this.currentPhases[i]); }
+        for (let i=0;i<COUNTERS.length;i++) { const value=this.currentCounters[COUNTERS[i]]; b.counterSums[i] += value; b.counterMax[i] = Math.max(b.counterMax[i],value); }
+    }
+    rememberWorst(total) {
+        const severity = Math.max(this.interval || 0, total);
+        let index;
+        if (this.worstCount < this.worst.length) index = this.worstCount++;
+        else if (severity > this.worstThreshold) index = this.worstIndex;
+        const row = index === undefined ? this.previousFrame : this.worst[index];
+        if (index !== undefined) {
+            if(this.previousFrameValid)row.set(this.previousFrame,this.rowSize);
+            else row.fill(-1,this.rowSize);
+        }
+        row[0]=severity; row[1]=this.frames; row[2]=this.position ?? -1; row[3]=this.interval ?? -1; row[4]=total;
+        row.set(this.currentPhases,5);
+        for (let i=0;i<COUNTERS.length;i++) row[5+PHASES.length+i] = this.currentCounters[COUNTERS[i]];
+        if (index !== undefined) this.previousFrame.set(row.subarray(0,this.rowSize));
+        this.previousFrameValid = true;
+        if (index !== undefined && this.worstCount === this.worst.length) {
+            this.worstIndex=0;
+            for (let i=1;i<this.worst.length;i++) if(this.worst[i][0]<this.worst[this.worstIndex][0])this.worstIndex=i;
+            this.worstThreshold=this.worst[this.worstIndex][0];
+        }
+    }
+    quick() {
+        const interval = this.series.get("frameInterval"), mean = interval?.count ? interval.windowSum/Math.min(interval.count,this.capacity) : 0;
+        const milliseconds = {}, counters = {};
+        for (const name of ["total", ...PHASES]) { const s=this.series.get(name); milliseconds[name]=s?.count ? s.windowSum/Math.min(s.count,this.capacity) : 0; }
+        for (const name of COUNTERS) { const s=this.counterSeries.get(name); counters[name]=s?.count ? s.values[(s.count-1)%this.capacity] : 0; }
+        return {frames:this.frames, fps:mean>0?1000/mean:null, maxInterval:interval?.max||0, milliseconds, counters};
     }
     snapshot() {
-        const milliseconds = {};
-        for (const [name, series] of this.series) {
-            const values = [...series.values.subarray(0, Math.min(series.count,this.capacity))].sort((a,b)=>a-b);
-            milliseconds[name] = { samples:values.length, mean:values.reduce((a,b)=>a+b,0)/values.length,
-                p95:values[Math.ceil(values.length*.95)-1], max:values.at(-1) };
-        }
-        return {enabled:this.enabled, frames:this.frames, windowSize:this.capacity, milliseconds};
+        // Percentiles are sorted only on explicit read/export, outside play.
+        const statistics = map => Object.fromEntries([...map].filter(([,s])=>s.count).map(([name,s])=>{
+            const values=[...s.values.subarray(0,Math.min(s.count,this.capacity))].sort((a,b)=>a-b);
+            return [name,{samples:values.length,mean:s.windowSum/values.length,p95:values[Math.ceil(values.length*.95)-1],max:values.at(-1)}];
+        }));
+        const totals = map => Object.fromEntries([...map].filter(([,s])=>s.count).map(([name,s])=>[name,{samples:s.count,mean:s.sum/s.count,max:s.max}]));
+        const phases=values=>Object.fromEntries(PHASES.map((name,i)=>[name,values[i]]));
+        const counts=values=>Object.fromEntries(COUNTERS.map((name,i)=>[name,values[i]]));
+        return {enabled:this.enabled,frames:this.frames,windowSize:this.capacity,milliseconds:statistics(this.series),
+            counters:statistics(this.counterSeries), totals:{milliseconds:totals(this.series),counters:totals(this.counterSeries)},
+            intervalThresholds:{over25ms:this.over25,over50ms:this.over50,over100ms:this.over100},
+            sampledIntervalMilliseconds:this.elapsed,
+            timeline:this.timeline.slice().sort((a,b)=>a.second-b.second).map(b=>({second:b.second,chartFrom:b.from,chartTo:b.to,
+                frames:b.frames,fps:b.intervalSum>0?b.intervalSamples*1000/b.intervalSum:null,maxInterval:b.maxInterval,
+                meanCpu:b.cpuSum/b.frames,maxCpu:b.maxCpu,over25ms:b.over25,over50ms:b.over50,over100ms:b.over100,
+                meanMilliseconds:phases(b.phaseSums.map(v=>v/b.frames)),maxMilliseconds:phases(b.phaseMax),
+                meanCounters:counts(b.counterSums.map(v=>v/b.frames)),maxCounters:counts(b.counterMax)})),
+            worstFrames:this.worst.slice(0,this.worstCount).sort((a,b)=>b[0]-a[0]).map(r=>({frame:r[1],chartTime:r[2]<0?null:r[2],
+                interval:r[3]<0?null:r[3],cpu:r[4],milliseconds:phases(r.subarray(5,5+PHASES.length)),counters:counts(r.subarray(5+PHASES.length,this.rowSize)),
+                precedingFrame:r[this.rowSize]<0?null:{frame:r[this.rowSize+1],chartTime:r[this.rowSize+2]<0?null:r[this.rowSize+2],cpu:r[this.rowSize+4],
+                    milliseconds:phases(r.subarray(this.rowSize+5,this.rowSize+5+PHASES.length)),counters:counts(r.subarray(this.rowSize+5+PHASES.length))}}))};
     }
 }
 exports.FrameProfiler = FrameProfiler;
@@ -4089,7 +4275,7 @@ class PreviewRenderer {
         this.fullGauge = true;
         this.setPreviewSkin("normal");
     }
-    setGaugeState(mode, gauge) {
+    setGaugeState(mode, gauge, counters = null) {
         const next = mode === "free" ? null : gauge;
         const changed = this.gameGauge !== next;
         this.gameGauge = next;
@@ -4102,6 +4288,7 @@ class PreviewRenderer {
         const hsv = next.hsv(), key = hsv.join(",");
         if (!changed && this.gaugeColorKey === key) return;
         this.gaugeColorKey = key;
+        if (counters) counters.backgroundUpdates++;
         const sprite = this.assets.scene.backgroundLayer.sprites.background;
         if (!this.gaugeBackdrop) this.gaugeBackdrop = new (require("./preview-hsv.js").HsvBackdrop)(this.defaultAtlas, this.assets.atlas.frames[sprite.frame]);
         const image = this.gaugeBackdrop.render(...hsv);
@@ -4281,6 +4468,10 @@ class PreviewRenderer {
     drawHitBurst(hit, time, y, index) {
         var _a;
         if (hit.node?.erased && time >= hit.node.releaseTime + SUSTAIN_TRANSITION_SECONDS) return;
+        if (this.performanceCounters) {
+            this.performanceCounters.bursts++;
+            this.performanceCounters.effectImages += hit.type === 33 ? 1 : 12;
+        }
         const progress = (time - hit.time) / BURST_SECONDS;
         const alpha = 1 - progress;
         const color = HIT_COLORS[hit.type];
@@ -4339,6 +4530,7 @@ class PreviewRenderer {
         const firstDot = (0, preview_model_js_1.upperBound)(this.chainDotHits, time - BURST_SECONDS, dot => dot.time + preview_model_js_1.AUTO_JUDGE_DELAY);
         const lastDot = (0, preview_model_js_1.upperBound)(this.chainDotHits, time, dot => dot.time + preview_model_js_1.AUTO_JUDGE_DELAY);
         for (let index = firstDot; !this.judgmentSession && index < lastDot; index++) {
+            if (this.performanceCounters) { this.performanceCounters.bursts++; this.performanceCounters.effectImages++; }
             const dot = this.chainDotHits[index];
             const age = time - (dot.time + preview_model_js_1.AUTO_JUDGE_DELAY);
             const alpha = 1 - age / BURST_SECONDS;
@@ -4357,6 +4549,7 @@ class PreviewRenderer {
             const releaseAge = Math.max(0, time - release);
             if (releaseAge >= SUSTAIN_TRANSITION_SECONDS)
                 continue;
+            if (this.performanceCounters) { this.performanceCounters.sustains++; this.performanceCounters.effectImages += 2; }
             const entered = Math.min(1, ((live?.released ? Math.min(time, release) : time) - hitTime) / SUSTAIN_TRANSITION_SECONDS);
             const exiting = releaseAge / SUSTAIN_TRANSITION_SECONDS;
             const color = HIT_COLORS[start.type];
@@ -4398,6 +4591,7 @@ class PreviewRenderer {
         const length = kind === noteTypes.NOTE_KIND.LONGCHAIN ? Math.min(2000, rawLength) : rawLength;
         if (length === 0)
             return;
+        if (this.performanceCounters) this.performanceCounters.bodies++;
         const rect = this.assets.atlas.frames[body];
         const width = kind === noteTypes.NOTE_KIND.WIDE_CHARGE ? ((_a = start.width) !== null && _a !== void 0 ? _a : rect[2]) : rect[2];
         this.notes.save();
@@ -4411,6 +4605,7 @@ class PreviewRenderer {
     }
     drawNote(note, y, x = note.x, rotation = 0) {
         var _a, _b;
+        if (this.performanceCounters) this.performanceCounters.notes++;
         const skin = this.assets.noteSkins[note.skin];
         const frame = note.coincident && skin.coincidentFrame ? skin.coincidentFrame : skin.frame;
         const rect = this.assets.atlas.frames[frame];
@@ -4445,10 +4640,13 @@ class PreviewRenderer {
             this.drawNote(sustain.start, judgeY, x, rotation);
         }
     }
-    drawNotes(chart, time) {
+    drawNotes(chart, time, profiler = null) {
+        this.performanceCounters = profiler?.frameActive ? profiler.currentCounters : null;
         this.notes.clearRect(0, 0, this.notes.canvas.width, WORLD_HEIGHT);
-        if (!chart)
+        if (!chart) {
+            this.performanceCounters = null;
             return;
+        }
         const { judgeY, coincidentLine } = this.assets.scene.noteLayer;
         const scroll = chart.scrollAt(time);
         const low = scroll - (this.judgmentSession ? 0.25 : 0.001);
@@ -4461,6 +4659,7 @@ class PreviewRenderer {
             const chord = chords[index];
             const view = this.judgmentSession?.chordVisual(chord);
             if (this.judgmentSession ? !view : chord.time <= time || chord.scroll > high) continue;
+            if (this.performanceCounters) this.performanceCounters.chords++;
             const y = view ? view.y : judgeY + (chord.scroll - scroll) * this.noteSpeed;
             drawFrame(this.notes, this.atlas, lineRect, chord.left + WORLD_PADDING_X, WORLD_HEIGHT - y - lineRect[3] / 2, chord.right - chord.left);
         }
@@ -4475,6 +4674,7 @@ class PreviewRenderer {
             const dot = dots[index];
             const view = this.judgmentSession?.noteVisual(dot);
             if (this.judgmentSession ? !view : dot.time <= time || dot.scroll > high) continue;
+            if (this.performanceCounters) this.performanceCounters.dots++;
             const y = view ? view.y : judgeY + (dot.scroll - scroll) * this.noteSpeed;
             const x = view ? view.x : dot.x;
             drawFrame(this.notes, this.atlas, dotRect, x + WORLD_PADDING_X - dotRect[2] / 2, WORLD_HEIGHT - y - dotRect[3] / 2);
@@ -4489,7 +4689,10 @@ class PreviewRenderer {
             this.withGrayout(view?.grayout, () => this.drawNote(note, view ? view.y : judgeY + (note.scroll - scroll) * this.noteSpeed, view ? view.x : note.x, view?.rotation || 0));
         }
         this.drawHeldHeads(chart, time, scroll, judgeY);
+        profiler?.mark("notes");
         this.drawHitEffects(chart, time, judgeY);
+        profiler?.mark("effects");
+        this.performanceCounters = null;
     }
     setTrackLabels(title, difficulty, color) {
         var _a, _b, _c, _d;
@@ -5521,8 +5724,9 @@ const { RecordStore, chartRecordId, rankForScore } = require("./preview-records.
 const { nativeBonuses } = require("./preview-native-result.js");
 const { ResultRenderer } = require("./preview-result.js");
 const { FrameProfiler } = require("./preview-performance.js");
+const { PerformancePanel } = require("./preview-performance-panel.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 const elements = new Map();
 const E = id => {
     const node = elements.get(id) || document.getElementById(id);
@@ -5614,7 +5818,7 @@ async function start() {
     const readyCue = E("ready-cue"), goCue = E("go-cue"), sceneButton = E("scene-toggle");
     let project = null, chart = null, activeId = "", activeAsset = null, audioContext = null;
     let importSerial = 0, actionSerial = 0, loading = false, preparing = false, requestedPause = false;
-    let frame = null, page = null, importingPresets = false;
+    let frame = null, page = null, performancePanel = null, importingPresets = false;
     let recordId = null, recordSerial = 0, recordPending = false, pendingDeath = false, resultSnapshot = null;
     let drawFrames = 0, maxFrameGap = 0, lastFrameTime = null, maxDrawDuration = 0;
     let previousChartTime = null, maxChartStep = 0, maxRealStep = 0;
@@ -5700,16 +5904,17 @@ async function start() {
         packageInput.disabled = busy || locked;
         chartSelect.disabled = !project || busy || locked;
         modeSelect.disabled = busy || locked || importingPresets;
-        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "early-late"])
+        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "early-late", "performance-tracking", "performance-visible"])
             E(id).disabled = busy || locked;
         autoPlay.disabled = fullGauge.disabled = busy || !round.free;
         for (const part of ["background", "note", "label"]) E(part+"-preset").disabled = busy || importingPresets || !round.free;
         presetInput.disabled = busy || importingPresets || !round.free;
 
     }
-    function draw() {
+    function draw(scheduled = false) {
         const now = performance.now()/1000;
-        profiler.begin(now*1000);
+        profiler.begin(now*1000, scheduled && transport.state === "playing");
+        const judgedBefore = profiler.frameActive ? judgment.judgedCount : 0;
         if (transport.state === "playing") {
             if (lastFrameTime !== null) maxFrameGap = Math.max(maxFrameGap, now-lastFrameTime);
             lastFrameTime = now; drawFrames++;
@@ -5732,11 +5937,15 @@ async function start() {
             if (gauge.dead) pendingDeath = true;
         } else if (transport.waiting) judgment.touches.update();
         gauge.update(now);
+        if (profiler.frameActive) {
+            profiler.position = chartTime;
+            profiler.currentCounters.judged = judgment.judgedCount-judgedBefore;
+            profiler.currentCounters.touches = judgment.touches.active.size;
+        }
         profiler.mark("logic");
-        renderer.setGaugeState(round.mode, gauge);
+        renderer.setGaugeState(round.mode, gauge, profiler.frameActive ? profiler.currentCounters : null);
         profiler.mark("background");
-        renderer.drawNotes(chart, chartTime);
-        profiler.mark("notesAndEffects");
+        renderer.drawNotes(chart, chartTime, profiler.frameActive ? profiler : null);
         renderer.drawHud(score.update(), chart, chartTime);
         profiler.mark("hud");
         if (!pendingDeath && state === "ended" && round.active && !resultSnapshot) finishRound(false);
@@ -5787,12 +5996,14 @@ async function start() {
         }
         property(E("empty-hint"),"hidden",!!chart);
         const resultFrame = resultRenderer.draw(now);
-        profiler.mark("interfaceAndResult"); profiler.end();
+        profiler.mark("interfaceAndResult");
+        performancePanel?.update(now*1000, running);
+        profiler.mark("monitor"); profiler.end();
         maxDrawDuration = Math.max(maxDrawDuration, performance.now()/1000-now);
         if (resultFrame.retryFinished) { reset(); void play(); return; }
         const colorPending = gauge.colorStart !== null && now - gauge.colorStart < .5;
         if ((running || pendingDeath || score.pending || gauge.pending || colorPending || resultFrame.animating) && frame === null)
-            frame = requestAnimationFrame(() => { frame = null; draw(); });
+            frame = requestAnimationFrame(() => { frame = null; draw(true); });
     }
     function pause(menu = false) {
         ++actionSerial; preparing = false; requestedPause = menu;
@@ -5935,6 +6146,7 @@ async function start() {
                 transport.reset(chart); judgment.reset(chart, autoPlay.checked); score.reset(); resetGauge();
             }
             const startPosition = transport.position();
+            if (!round.active) performancePanel?.startRun();
             await transport.play(withCountdown ? RESUME_SECONDS : 0);
             if (serial !== actionSerial) return false;
             round.begin(transport.playbackRate, autoPlay.checked, startPosition);
@@ -6134,16 +6346,45 @@ async function start() {
     document.addEventListener("visibilitychange", () => { if (document.hidden) pause(true); });
     window.addEventListener("pagehide", () => pause(false));
     window.addEventListener("pageshow", () => { resize(); draw(); });
+    function performanceContext() {
+        return {version:VERSION,title:project?.manifest.title||"",chartId:activeId,difficulty:currentEntry()?.difficulty||"",
+            mode:round.mode,autoPlay:autoPlay.checked,rate:transport.playbackRate,hiSpeed:hiSpeed.valueAsNumber,
+            position:transport.position(),state:transport.state,displayPanel:performancePanel?.visible??true,
+            presets:{...appearance.selected},earlyLate:earlyLate.checked,preservePitch:transport.preservesPitch,
+            userAgent:navigator.userAgent,language:navigator.language,hardwareConcurrency:navigator.hardwareConcurrency??null,
+            devicePixelRatio:globalThis.devicePixelRatio||1,screen:{width:screen.width,height:screen.height},
+            viewport:{width:viewport.clientWidth,height:viewport.clientHeight},
+            canvases:Object.fromEntries(["backdrop","notes","hud"].map(id=>[id,{width:E(id).width,height:E(id).height}])),
+            fullscreen:page.snapshot()};
+    }
+    performancePanel = new PerformancePanel({profiler,readContext:performanceContext,
+        nodes:{tracking:E("performance-tracking"),visible:E("performance-visible"),options:E("performance-options"),
+            panel:E("performance-panel"),export:E("performance-export"),clear:E("performance-clear"),status:E("performance-status"),
+            fps:E("perf-fps"),total:E("perf-total"),interval:E("perf-interval"),logic:E("perf-logic"),
+            background:E("perf-background"),notes:E("perf-notes"),effects:E("perf-effects"),hud:E("perf-hud"),counts:E("perf-counts")},
+        download(report) {
+            try {
+                const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:"application/json"}));
+                const link=document.createElement("a");link.href=url;
+                link.download=`ChainModE-v${VERSION}-performance-${new Date().toISOString().replace(/[:.]/g,"-")}.json`;
+                document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);
+            } catch(cause) { showError("无法导出性能报告。",cause); }
+        }});
     globalThis.ChainModE = Object.freeze({
         version: VERSION, importPackage, selectChart, importPresets, setAutoPlay, setMode, setEarlyLate,
-        setPerformanceTracking(value) { profiler.setEnabled(value); },
+        setPerformanceTracking(value) {
+            if(round.locked||loading||preparing)return false;
+            performancePanel.setEnabled(value);draw();return true;
+        },
         readPerformance() { return profiler.snapshot(); },
+        readPerformanceReport() { return performancePanel.report(); },
         readState() {
             return { version: VERSION, chartId: activeId, chartIds: project ? Object.keys(project.manifest.charts) : [],
                 title: project?.manifest.title || "", state: transport.state, position: transport.position(), duration: chart ? transport.duration : 0,
                 score: score.value, scoreTarget: score.target, scoreCalculationEnabled: true, autoPlay: autoPlay.checked,
                 judgments: judgment.snapshot(), hiSpeed: hiSpeed.valueAsNumber,
                 earlyLate: earlyLate.checked, originalPauseMenu: true, fullscreen:page.snapshot(),
+                performanceTracking:profiler.enabled,performancePanelVisible:profiler.enabled&&performancePanel.visible,performanceSamples:profiler.frames,
                 mode: round.mode, locked: round.locked, gauge: gauge.hp, displayedGauge: gauge.display, pressure: gauge.rawLevel,
                 record: recordId ? records.get(recordId) : null, result: resultSnapshot ? JSON.parse(JSON.stringify(resultSnapshot)) : null,
                 recordable: round.recordable, usedNonUnitRate: round.usedNonUnitRate,
