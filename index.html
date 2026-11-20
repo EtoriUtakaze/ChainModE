@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainModE：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainModE v0.1.8</title>
+<title>ChainModE v0.2.0</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -21,10 +21,15 @@
 html.chainmode-immersive,html.chainmode-immersive * {user-select:none!important;-webkit-user-select:none!important;-webkit-touch-callout:none!important;-webkit-user-drag:none!important;touch-action:none!important;overscroll-behavior:none!important;-webkit-tap-highlight-color:transparent;}
 .preview-plate.is-immersive {position:fixed;inset:0;z-index:2147483000;width:100vw;height:100vh;height:100dvh;margin:0;border:0;border-radius:0;background:#000;overflow:hidden;overscroll-behavior:none;touch-action:none;isolation:isolate;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
 .preview-plate.is-immersive::backdrop {background:#000;}
+.preview-plate.is-immersive[data-fullscreen-mode=native] {width:100%;height:100%;}
+html.chainmode-immersive body:fullscreen {background:#000;}
+html.chainmode-immersive body:-webkit-full-screen {background:#000;}
+html.chainmode-immersive body:-moz-full-screen {background:#000;}
 .preview-plate.is-immersive .preview-window {flex:none;max-width:none;margin:0;}
 .preview-plate.is-immersive .viewport {width:100%;height:100%;}
 .immersive-placeholder {width:100%;pointer-events:none;}
-.immersive-exit {position:absolute;z-index:20;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #ffe3b950;border-radius:8px;background:#141018bb;color:#ffe3b9;touch-action:manipulation;}
+.immersive-exit {position:absolute;z-index:20;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;place-items:center;min-width:44px;height:44px;min-height:44px;padding:0 12px;border:1px solid #ffe3b950;border-radius:8px;background:#141018bb;color:#ffe3b9;touch-action:manipulation;font-size:14px;white-space:nowrap;}
+.fullscreen-notice {position:absolute;z-index:20;left:max(12px,env(safe-area-inset-left));top:max(12px,env(safe-area-inset-top));max-width:calc(100% - 170px);padding:9px 12px;border:1px solid #ffffff30;border-radius:7px;background:#141018e8;color:#f5effa;font-size:14px;line-height:1.5;pointer-events:none;}
 
 .selection-row {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:450px;flex-shrink:0;max-width:50%;}.selection-row .chart-field {min-width:0;max-width:none;}.selection-row select {min-width:0;}#result-shade {mix-blend-mode:multiply;}#result-retry {position:absolute;background:transparent;border:0;border-radius:0;min-height:0;padding:0;opacity:1;}#result-retry:focus-visible {outline:2px solid #ffde95;outline-offset:2px;}#result-retry:hover {border:0;}#result-retry:disabled {opacity:1;}@media(max-width:760px) {.selection-row {width:100%;max-width:none;gap:10px;}.selection-row .chart-field {display:grid;grid-template-columns:minmax(0,1fr);gap:6px;}.selection-row select {padding-left:9px;font-size:14px;}}
 </style>
@@ -32,7 +37,7 @@ html.chainmode-immersive,html.chainmode-immersive * {user-select:none!important;
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.1.8</span></div>
+    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.2.0</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -65,7 +70,7 @@ html.chainmode-immersive,html.chainmode-immersive * {user-select:none!important;
           <button id="result-retry" type="button" aria-label="Retry" title="Retry" hidden></button>
         </div>
         <div id="empty-hint" class="empty-hint" hidden>选择一个 CBT 文件，开始预览</div>
-      </div></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h5V4M20 9h-5V4M4 15h5v5m11-5h-5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      </div></div><div id="fullscreen-notice" class="fullscreen-notice" role="status" hidden></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden>退出全屏</button></div>
       <div class="transport">
         <div class="play-row"><button id="play" class="primary" type="button" aria-keyshortcuts="Enter Space" disabled>播放</button><button id="restart" type="button" disabled>重来</button><output id="time">0:00 / 0:00</output></div>
         <input id="timeline" type="range" min="0" max="1" step="0.001" value="0" aria-label="预览时间" disabled>
@@ -1127,6 +1132,141 @@ async function readCbt(buffer) {
 }
 Object.assign(exports, { readCbt, normalizeManifest, memberPath, audioFormat, getChartData, getAudioAsset, getChartAudio, addAudio,
     createProject, appendChart, uniquePath });
+});
+define('./preview-fullscreen.js', (exports, require) => {
+"use strict";
+// Independently implemented from the native-page approach in SimPhi common.js
+// (1046c4e6b5fe807f48d9ea2dc35d301bc402fa1a). Events and the actual fullscreen
+// element confirm entry; a returned Promise alone is not a confirmation.
+const FAMILIES = [
+    { name: "standard", enabled: "fullscreenEnabled", requests: ["requestFullscreen"], exits: ["exitFullscreen"] },
+    { name: "webkit", enabled: "webkitFullscreenEnabled", requests: ["webkitRequestFullscreen", "webkitRequestFullScreen"], exits: ["webkitExitFullscreen", "webkitCancelFullScreen"] },
+    { name: "mozilla", enabled: "mozFullScreenEnabled", requests: ["mozRequestFullScreen"], exits: ["mozCancelFullScreen"] }
+];
+const CHANGE = ["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange"];
+const ERROR = ["fullscreenerror", "webkitfullscreenerror", "mozfullscreenerror"];
+const LIMIT_MS = 2500;
+const errorInfo = (code, error) => ({ code, name: String(error?.name || "FullscreenError").slice(0, 80),
+    message: String(error?.message || error || code).slice(0, 512) });
+function fullscreenElement(doc) {
+    return doc.fullscreenElement || doc.webkitFullscreenElement || doc.webkitCurrentFullScreenElement || doc.mozFullScreenElement || null;
+}
+function fullscreenSupport(doc, target) {
+    const flags = {}, candidates = [];
+    for (const family of FAMILIES) {
+        flags[family.enabled] = typeof doc[family.enabled] === "boolean" ? doc[family.enabled] : null;
+        const method = family.requests.find(name => typeof target?.[name] === "function");
+        // A false standard flag must not disable a supported prefixed family.
+        if (method && flags[family.enabled] !== false) candidates.push({ ...family, method });
+    }
+    return { flags, candidates };
+}
+class NativeFullscreen {
+    constructor(doc, changed, timing = {}) {
+        this.doc = doc; this.changed = changed;
+        this.later = timing.setTimeout || ((fn, ms) => setTimeout(fn, ms));
+        this.cancel = timing.clearTimeout || (id => clearTimeout(id));
+        this.serial = 0; this.active = false; this.exiting = false;
+        this.state = "idle"; this.error = null; this.exitError = null; this.api = null;
+        this.target = null; this.timer = null; this.exitTimer = null;
+        this.support = { flags: {}, candidates: [] };
+        for (const event of CHANGE) doc.addEventListener(event, () => this.check());
+        for (const event of ERROR) doc.addEventListener(event, event => {
+            if (this.active && this.state === "requesting") this.fail("fullscreenerror", event.error || event);
+        });
+    }
+    clearTimer(name) { if (this[name] !== null) this.cancel(this[name]); this[name] = null; }
+    element() { return fullscreenElement(this.doc); }
+    arm(name, callback) {
+        this.clearTimer(name);
+        this[name] = this.later(() => { this[name] = null; callback(); }, LIMIT_MS);
+        this[name]?.unref?.();
+    }
+    check() {
+        const element = this.element();
+        if (this.exiting && element !== this.target) { this.exiting = false; this.clearTimer("exitTimer"); }
+        if (!this.active) {
+            // A request may finish after the player has cancelled entry.
+            if (element && element === this.target) this.exitOwned();
+            return;
+        }
+        if (element === this.target) {
+            this.clearTimer("timer");
+            if (this.state !== "native") { this.state = "native"; this.error = null; this.changed(); }
+        } else if (this.state === "native") {
+            this.state = "exited"; this.changed();
+        }
+    }
+    fail(code, error) {
+        if (!this.active) return;
+        if (this.element() === this.target) { this.check(); return; }
+        this.clearTimer("timer"); this.state = "fallback";
+        this.error = errorInfo(code, error); this.changed();
+    }
+    open(target = this.doc.body) {
+        if (this.exiting) return false;
+        const serial = ++this.serial;
+        this.active = true; this.target = target; this.error = null; this.exitError = null;
+        this.support = fullscreenSupport(this.doc, target);
+        this.api = this.support.candidates[0] || null; this.state = "requesting";
+        if (this.element() === target) { this.check(); return true; }
+        if (this.element()) { this.fail("other-element", "Another element is already fullscreen"); return false; }
+        if (!this.api) {
+            const hasMethod = FAMILIES.some(f => f.requests.some(name => typeof target?.[name] === "function"));
+            this.fail(hasMethod ? "disabled" : "unsupported", hasMethod ? "Fullscreen is disabled for this document" : "No page fullscreen API");
+            return false;
+        }
+        this.changed();
+        this.arm("timer", () => this.fail("not-confirmed", "No fullscreen element was confirmed within 2500 ms"));
+        const api = this.api;
+        try {
+            // Keep the browser's user activation: no await/decode/animation before
+            // this call. Prefixed methods receive no options, as in SimPhi.
+            const result = api.name === "standard" ? target[api.method]({ navigationUI: "hide" }) : target[api.method]();
+            this.check();
+            Promise.resolve(result).then(() => {
+                if (serial !== this.serial) { if (!this.active) this.exitOwned(); return; }
+                this.check();
+            }, error => {
+                if (serial === this.serial) this.fail("request-rejected", error);
+            });
+        } catch (error) { this.fail("request-threw", error); }
+        return true;
+    }
+    exitOwned() {
+        if (!this.target || this.element() !== this.target || this.exiting) return;
+        const exits = [...(this.api?.exits || []), ...FAMILIES.flatMap(f => f.exits)];
+        const method = exits.find(name => typeof this.doc[name] === "function");
+        if (!method) { this.exitError = errorInfo("exit-unsupported", "No exit fullscreen API"); return; }
+        this.exiting = true;
+        this.arm("exitTimer", () => {
+            this.exiting = false;
+            if (this.element() === this.target) this.exitError = errorInfo("exit-not-confirmed", "Browser did not confirm fullscreen exit");
+        });
+        try {
+            const result = this.doc[method]();
+            this.check();
+            Promise.resolve(result).then(() => this.check(), error => {
+                this.exiting = false; this.clearTimer("exitTimer"); this.exitError = errorInfo("exit-rejected", error);
+            });
+        } catch (error) {
+            this.exiting = false; this.clearTimer("exitTimer"); this.exitError = errorInfo("exit-threw", error);
+        }
+    }
+    close() {
+        this.active = false; this.serial++; this.clearTimer("timer"); this.state = "idle";
+        this.exitOwned();
+    }
+    snapshot() {
+        return { state: this.state, confirmed: this.active && this.element() === this.target, target: this.target === this.doc.body ? "body" : null,
+            api: this.api?.method || null, support: { ...this.support.flags }, error: this.error && { ...this.error },
+            exitError: this.exitError && { ...this.exitError } };
+    }
+}
+exports.NativeFullscreen = NativeFullscreen;
+exports.fullscreenElement = fullscreenElement;
+exports.fullscreenSupport = fullscreenSupport;
+
 });
 define('./preview-gauge.js', (exports, require) => {
 "use strict";
@@ -3297,6 +3437,7 @@ define('./preview-page.js', (exports, require) => {
 "use strict";
 const { fitStage, inputPosition } = require("./preview-stage-layout.js");
 const { StageOrientation } = require("./preview-orientation.js");
+const { NativeFullscreen } = require("./preview-fullscreen.js");
 const styleChanged = (style, values) => { for (const key in values) if (style[key] !== values[key]) style[key] = values[key]; };
 // Independently implemented adapter, following the stage/fullscreen/input design
 // in SimPhi's Stage.ts, common.js and index.ts, commit 1046c4e6b5fe807f48d9ea2dc35d301bc402fa1a.
@@ -3307,8 +3448,10 @@ class PreviewPage {
         this.window = this.pane.querySelector(".preview-window");
         this.viewport = this.pane.querySelector(".viewport");
         this.exitButton = this.plate.querySelector("#exit-immersive");
+        this.notice = this.plate.querySelector("#fullscreen-notice"); this.noticeTimer = null;
         this.active = false; this.rotated = false; this.mode = "inline"; this.serial = 0; this.frame = null;
         this.orientation = new StageOrientation(() => this.resize());
+        this.fullscreen = new NativeFullscreen(document, () => this.fullscreenChanged(), options.fullscreenTiming);
         const screenChanged = () => this.orientation.screenChanged(globalThis.screen?.orientation);
         globalThis.screen?.orientation?.addEventListener?.("change", screenChanged);
         window.addEventListener?.("orientationchange", screenChanged);
@@ -3334,8 +3477,6 @@ class PreviewPage {
         document.addEventListener("mousedown", event => {
             if (this.active && event.button === 1) event.preventDefault();
         }, { capture: true });
-        for (const event of ["fullscreenchange", "webkitfullscreenchange", "mozfullscreenchange"])
-            document.addEventListener(event, () => this.fullscreenChanged());
         document.addEventListener("keydown", event => {
             if (!this.active || event.isComposing) return;
             if (event.key === "Escape") {
@@ -3351,11 +3492,11 @@ class PreviewPage {
         }, { capture: true });
         this.sync();
     }
-    fullscreenElement() { return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || null; }
+    fullscreenElement() { return this.fullscreen.element(); }
     toggle() { if (this.active) this.exit(); else this.enter(); }
     enter() {
-        if (this.active || this.options.canToggle?.() === false) return;
-        const serial = ++this.serial;
+        if (this.active || this.fullscreen.exiting || this.options.canToggle?.() === false) return;
+        this.serial++;
         this.focusBefore = document.activeElement;
         this.scrollBefore = [window.scrollX, window.scrollY];
         this.bodyStyle = document.body.getAttribute("style");
@@ -3379,7 +3520,7 @@ class PreviewPage {
         }
         Object.assign(document.documentElement.style, { overflow: "hidden", overscrollBehavior: "none" });
         Object.assign(document.body.style, { overflow: "hidden", position: "fixed", width: "100%", top: `${-this.scrollBefore[1]}px`, left: `${-this.scrollBefore[0]}px` });
-        this.active = true; this.mode = "viewport"; this.orientation.begin();
+        this.active = true; this.mode = "requesting"; this.orientation.begin();
         document.documentElement.classList.add("chainmode-immersive");
         document.getSelection?.()?.removeAllRanges();
         this.plate.classList.add("is-immersive");
@@ -3387,39 +3528,37 @@ class PreviewPage {
         this.sync(); this.resize(true);
         this.exitButton.focus({ preventScroll: true });
         this.options.onChange?.(true);
-        // Request synchronously in the click before decode/layout awaits consume activation.
-        const request = document.fullscreenEnabled === false ? null :
-            this.plate.requestFullscreen || this.plate.webkitRequestFullscreen || this.plate.mozRequestFullScreen;
-        if (!request) return;
-        try {
-            const result = request === this.plate.requestFullscreen
-                ? request.call(this.plate, { navigationUI: "hide" }) : request.call(this.plate);
-            Promise.resolve(result).then(() => {
-                if (serial !== this.serial || !this.active) { if (!this.active) this.exitNative(); return; }
-                this.fullscreenChanged();
-            }).catch(() => {
-                if (serial !== this.serial || !this.active) return;
-                this.mode = "viewport"; this.sync(); this.resize();
-            });
-        } catch { this.mode = "viewport"; this.sync(); this.resize(); }
+        // SimPhi requests the whole page, then independently sizes its stage.
+        this.fullscreen.open(document.body);
     }
     fullscreenChanged() {
-        if (this.fullscreenElement() === this.plate) {
-            if (!this.active) { this.exitNative(); return; }
+        if (!this.active) return;
+        if (this.fullscreen.state === "native") {
+            styleChanged(document.body.style, {top:"0",left:"0",width:"100%",height:"100%"});
             this.mode = "native"; this.sync(); this.resize();
+            this.hideNotice();
             this.orientation.request(globalThis.screen?.orientation);
-        } else if (this.active && this.mode === "native") this.leave();
+        } else if (this.fullscreen.state === "exited") this.leave();
+        else if (this.fullscreen.state === "fallback") {
+            this.mode = "viewport"; this.sync(); this.resize();
+            if (this.notice) {
+                this.hideNotice();
+                this.notice.textContent = "浏览器全屏未成功，当前已铺满网页。"; this.notice.hidden = false;
+                this.noticeTimer = this.fullscreen.later(() => { this.noticeTimer = null; this.notice.hidden = true; }, 5000);
+                this.noticeTimer?.unref?.();
+            }
+        } else { this.mode = "requesting"; this.sync(); }
     }
-    exitNative() {
-        if (this.fullscreenElement() !== this.plate) return;
-        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
-        if (!exit) return;
-        try { Promise.resolve(exit.call(document)).catch(() => {}); } catch {}
+    hideNotice() {
+        if (this.noticeTimer !== null) this.fullscreen.cancel(this.noticeTimer);
+        this.noticeTimer = null;
+        if (this.notice) this.notice.hidden = true;
     }
-    exit() { this.exitNative(); this.leave(); }
+    exit() { this.leave(); }
     leave() {
         if (!this.active) return;
         this.serial++; this.active = false; this.rotated = false; this.mode = "inline";
+        this.fullscreen.close(); this.hideNotice();
         this.orientation.stop();
         if (this.frame !== null) cancelAnimationFrame(this.frame);
         this.frame = null;
@@ -3442,8 +3581,10 @@ class PreviewPage {
         this.options.onChange?.(false);
     }
     sync() {
-        this.button.textContent = this.active ? "退出全屏" : "全屏";
-        this.button.title = this.active ? "退出沉浸式全屏" : "沉浸式全屏";
+        const label = !this.active ? "全屏" : this.mode === "native" ? "退出全屏" : this.mode === "requesting" ? "取消全屏请求" : "退出网页铺满";
+        this.button.textContent = label; this.exitButton.textContent = label;
+        this.exitButton.setAttribute("aria-label", label); this.exitButton.setAttribute("title", label);
+        this.button.title = this.active ? label : "沉浸式全屏";
         this.button.setAttribute("aria-label", this.button.title);
         this.button.setAttribute("aria-pressed", String(this.active));
         this.plate.dataset.fullscreenMode = this.mode;
@@ -3480,7 +3621,7 @@ class PreviewPage {
         if (this.frame !== null) return;
         this.frame = requestAnimationFrame(() => { this.frame = null; this.fit(); this.options.resize(); });
     }
-    snapshot() { return {active:this.active, fullscreenMode:this.mode, ...this.orientation.snapshot()}; }
+    snapshot() { return {active:this.active, fullscreenMode:this.mode, ...this.orientation.snapshot(), native:this.fullscreen.snapshot()}; }
     inputPosition(clientX, clientY) {
         return inputPosition(clientX, clientY, this.viewport.getBoundingClientRect(), this.options.size, this.active && this.rotated);
     }
@@ -5381,7 +5522,7 @@ const { nativeBonuses } = require("./preview-native-result.js");
 const { ResultRenderer } = require("./preview-result.js");
 const { FrameProfiler } = require("./preview-performance.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.1.8";
+const VERSION = "0.2.0";
 const elements = new Map();
 const E = id => {
     const node = elements.get(id) || document.getElementById(id);
@@ -5392,12 +5533,7 @@ const E = id => {
 const text = (node, value) => { if (node.textContent !== value) node.textContent = value; };
 const property = (object, key, value) => { if (object[key] !== value) object[key] = value; };
 const assignChanged = (object, values) => { for (const key in values) property(object, key, values[key]); };
-class StandalonePage extends PreviewPage {
-    sync() {
-        super.sync();
-        text(this.button, this.active ? "退出全屏" : "全屏");
-    }
-}
+class StandalonePage extends PreviewPage {}
 function localPreferences() {
     const memory = new Map();
     let storage = null;
