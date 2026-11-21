@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainModE：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainModE v0.2.1</title>
+<title>ChainModE v0.2.2</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -29,8 +29,8 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 .preview-plate.is-immersive .viewport {width:100%;height:100%;}
 .immersive-placeholder {width:100%;pointer-events:none;}
 .immersive-exit {position:absolute;z-index:20;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #ffe3b950;border-radius:8px;background:#141018bb;color:#ffe3b9;touch-action:manipulation;}
-.performance-panel {position:absolute;z-index:12;top:8px;left:8px;width:min(324px,calc(100% - 16px));padding:8px 10px;border:1px solid #ffffff30;border-radius:6px;background:#100d17d9;color:#eeeaf3;font-size:14px;line-height:1.45;font-variant-numeric:tabular-nums;pointer-events:none;contain:layout style paint;}
-.performance-top {display:flex;justify-content:space-between;gap:12px;margin-bottom:4px;}.performance-top b {color:#f4c989;font-weight:600;}.performance-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px 16px;margin:0;}.performance-grid>div {display:flex;justify-content:space-between;gap:5px;min-width:0;}.performance-grid dt {color:#c8bfce;}.performance-grid dd {margin:0;white-space:nowrap;}.performance-counts {margin-top:4px;color:#c8bfce;font-size:13px;}.performance-options {border-top:1px solid var(--border);padding-top:4px;}.performance-actions {display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}.performance-actions button {padding:8px;font-size:14px;}.performance-status {display:block;margin-top:8px;color:var(--muted);font-size:13px;}
+.performance-panel {position:absolute;z-index:12;top:5px;left:5px;width:min(220px,calc(100% - 10px));padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:#eeeaf3;font-size:11px;line-height:1.25;font-variant-numeric:tabular-nums;pointer-events:none;user-select:none;text-shadow:0 1px 2px #000;contain:layout style paint;}
+.performance-top {display:flex;justify-content:space-between;gap:8px;margin-bottom:1px;white-space:nowrap;}.performance-top b {color:#f4c989;font-weight:600;}.performance-grid {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 10px;margin:0;}.performance-grid>div {display:flex;justify-content:space-between;gap:4px;min-width:0;}.performance-grid dt {color:#d9d1df;}.performance-grid dd {margin:0;white-space:nowrap;}.performance-tail {display:flex;justify-content:space-between;gap:6px;margin-top:1px;color:#d9d1df;font-size:10px;white-space:nowrap;}.performance-options {border-top:1px solid var(--border);padding-top:4px;}.performance-actions {display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;}.performance-actions button {padding:8px;font-size:14px;}.performance-status {display:block;margin-top:8px;color:var(--muted);font-size:13px;}
 
 .selection-row {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:450px;flex-shrink:0;max-width:50%;}.selection-row .chart-field {min-width:0;max-width:none;}.selection-row select {min-width:0;}#result-shade {mix-blend-mode:multiply;}#result-retry {position:absolute;background:transparent;border:0;border-radius:0;min-height:0;padding:0;opacity:1;}#result-retry:focus-visible {outline:2px solid #ffde95;outline-offset:2px;}#result-retry:hover {border:0;}#result-retry:disabled {opacity:1;}@media(max-width:760px) {.selection-row {width:100%;max-width:none;gap:10px;}.selection-row .chart-field {display:grid;grid-template-columns:minmax(0,1fr);gap:6px;}.selection-row select {padding-left:9px;font-size:14px;}}
 </style>
@@ -38,7 +38,7 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.2.1</span></div>
+    <div class="brand"><h1>Chain<span>ModE</span></h1><span class="version">v0.2.2</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -72,13 +72,12 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
         </div>
         <div id="empty-hint" class="empty-hint" hidden>选择一个 CBT 文件，开始预览</div>
         <div id="performance-panel" class="performance-panel" role="group" aria-label="性能面板" aria-live="off" hidden>
-          <div class="performance-top"><span>FPS <b id="perf-fps">—</b></span><span>CPU <b id="perf-total">0.00 ms</b></span></div>
+          <div class="performance-top"><span>FPS <b id="perf-fps">—</b></span><span>回调 <b id="perf-total">0.00 ms</b></span></div>
           <dl class="performance-grid">
             <div><dt>逻辑</dt><dd id="perf-logic">0.00 ms</dd></div><div><dt>背景</dt><dd id="perf-background">0.00 ms</dd></div>
             <div><dt>Note</dt><dd id="perf-notes">0.00 ms</dd></div><div><dt>特效</dt><dd id="perf-effects">0.00 ms</dd></div>
-            <div><dt>HUD</dt><dd id="perf-hud">0.00 ms</dd></div><div><dt>最长间隔</dt><dd id="perf-interval">0.00 ms</dd></div>
           </dl>
-          <div id="perf-counts" class="performance-counts">0 Note · 0 特效</div>
+          <div class="performance-tail"><span>最长 <span id="perf-interval">0.00 ms</span></span><span id="perf-counts">0 Note · 0 特效</span></div>
         </div>
       </div></div><button id="exit-immersive" class="immersive-exit" type="button" aria-label="退出全屏" title="退出全屏" hidden><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 9h5V4M20 9h-5V4M4 15h5v5m11-5h-5v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
       <div class="transport">
@@ -3465,7 +3464,7 @@ class PreviewPage {
         this.viewport = this.pane.querySelector(".viewport");
         this.exitButton = this.plate.querySelector("#exit-immersive");
         this.active = false; this.rotated = false; this.mode = "inline"; this.serial = 0; this.frame = null;
-        this.orientation = new StageOrientation(() => this.resize());
+        this.orientation = new StageOrientation(() => this.resize(false,4));
         this.fullscreen = new NativeFullscreen(document, () => this.fullscreenChanged(), options.fullscreenTiming);
         const screenChanged = () => this.orientation.screenChanged(globalThis.screen?.orientation);
         globalThis.screen?.orientation?.addEventListener?.("change", screenChanged);
@@ -3540,7 +3539,7 @@ class PreviewPage {
         document.getSelection?.()?.removeAllRanges();
         this.plate.classList.add("is-immersive");
         this.exitButton.hidden = false;
-        this.sync(); this.resize(true);
+        this.sync(); this.resize(true,5);
         this.exitButton.focus({ preventScroll: true });
         this.options.onChange?.(true);
         // SimPhi requests the whole page, then independently sizes its stage.
@@ -3550,11 +3549,11 @@ class PreviewPage {
         if (!this.active) return;
         if (this.fullscreen.state === "native") {
             styleChanged(document.body.style, {top:"0",left:"0",width:"100%",height:"100%"});
-            this.mode = "native"; this.sync(); this.resize();
+            this.mode = "native"; this.sync(); this.resize(false,5);
             this.orientation.request(globalThis.screen?.orientation);
         } else if (this.fullscreen.state === "exited") this.leave();
         else if (this.fullscreen.state === "fallback") {
-            this.mode = "viewport"; this.sync(); this.resize();
+            this.mode = "viewport"; this.sync(); this.resize(false,5);
         } else { this.mode = "requesting"; this.sync(); }
     }
     exit() { this.leave(); }
@@ -3577,7 +3576,7 @@ class PreviewPage {
         }
         this.placeholder?.remove();
         for (const [node, value] of this.inert || []) node.inert = value;
-        this.inert?.clear(); this.sync(); this.resize(true);
+        this.inert?.clear(); this.sync(); this.resize(true,5);
         const focus = this.focusBefore;
         if (focus?.isConnected && !focus.inert && !focus.disabled) focus.focus?.({ preventScroll: true });
         window.scrollTo(...this.scrollBefore);
@@ -3601,7 +3600,9 @@ class PreviewPage {
             styleChanged(this.plate.style, { left: `${vv?.offsetLeft || 0}px`, top: `${vv?.offsetTop || 0}px`,
                 width: `${vv?.width || window.innerWidth}px`, height: `${vv?.height || window.innerHeight}px` });
         }
+        const measuredAt=this.options.diagnostics?.taskStart()??-1;
         const rect = this.plate.getBoundingClientRect(), style = getComputedStyle(this.plate);
+        this.options.diagnostics?.taskEnd("layoutRead",measuredAt,rect.width,rect.height);
         const left = parseFloat(style.paddingLeft) || 0, top = parseFloat(style.paddingTop) || 0;
         const width = rect.width - left - (parseFloat(style.paddingRight) || 0);
         const height = rect.height - top - (parseFloat(style.paddingBottom) || 0);
@@ -3616,17 +3617,26 @@ class PreviewPage {
             left: `${left + width / 2}px`, top: `${top + height / 2}px`, width: `${size.width}px`, height: `${size.height}px`,
             transform: `translate(-50%, -50%) rotate(${size.rotated ? 90 : 0}deg)`, transformOrigin: "50% 50%" });
     }
-    resize(immediate = false) {
+    applyLayout(source) {
+        const measuredAt=this.options.diagnostics?.taskStart()??-1;
+        try {this.fit();this.options.resize();}
+        finally {this.options.diagnostics?.taskEnd("layout",measuredAt,source);}
+    }
+    resize(immediate = false, source = 0) {
+        this.options.diagnostics?.instant("resizeRequest",source);
         if (immediate) {
             if (this.frame !== null) cancelAnimationFrame(this.frame);
-            this.frame = null; this.fit(); this.options.resize(); return;
+            this.frame = null;this.applyLayout(source);return;
         }
         if (this.frame !== null) return;
-        this.frame = requestAnimationFrame(() => { this.frame = null; this.fit(); this.options.resize(); });
+        this.frame = requestAnimationFrame(() => { this.frame = null;this.applyLayout(source); });
     }
     snapshot() { return {active:this.active, fullscreenMode:this.mode, ...this.orientation.snapshot(), native:this.fullscreen.snapshot()}; }
     inputPosition(clientX, clientY) {
-        return inputPosition(clientX, clientY, this.viewport.getBoundingClientRect(), this.options.size, this.active && this.rotated);
+        const measuredAt=this.options.diagnostics?.taskStart()??-1;
+        const rect=this.viewport.getBoundingClientRect();
+        this.options.diagnostics?.taskEnd("bounds",measuredAt,rect.left,rect.top,rect.width,rect.height);
+        return inputPosition(clientX, clientY, rect, this.options.size, this.active && this.rotated);
     }
 }
 exports.PreviewPage = PreviewPage;
@@ -3636,22 +3646,23 @@ define('./preview-performance-panel.js', (exports, require) => {
 "use strict";
 const set = (node, key, value) => { if(node[key]!==value)node[key]=value; };
 class PerformancePanel {
-    constructor({profiler, nodes, readContext, download}) {
-        this.profiler=profiler; this.nodes=nodes; this.readContext=readContext; this.download=download;
+    constructor({profiler, diagnostics, nodes, readContext, download}) {
+        this.profiler=profiler; this.diagnostics=diagnostics;this.nodes=nodes; this.readContext=readContext; this.download=download;
         this.visible=true; this.running=false; this.nextUpdate=0; this.context=null;
         nodes.tracking.addEventListener("change",()=>this.setEnabled(nodes.tracking.checked));
         nodes.visible.addEventListener("change",()=>{this.visible=nodes.visible.checked;this.refresh();});
-        nodes.clear.addEventListener("click",()=>{if(!this.running){profiler.reset();this.context=profiler.enabled?this.readContext():null;this.refresh();}});
+        nodes.clear.addEventListener("click",()=>{if(!this.running){profiler.reset();diagnostics?.reset();this.context=profiler.enabled?this.readContext():null;this.refresh();}});
         nodes.export.addEventListener("click",()=>{if(!this.running&&profiler.frames)this.download(this.report());});
         this.refresh();
     }
     setEnabled(value) {
         this.profiler.setEnabled(value); if(value)this.context=this.readContext();
+        this.diagnostics?.setEnabled(value);
         this.nodes.tracking.checked=!!value; this.nextUpdate=0; this.refresh();
     }
     startRun() {
         if(!this.profiler.enabled)return;
-        this.profiler.reset(); this.context=this.readContext(); this.nextUpdate=0; this.refresh();
+        this.profiler.reset();this.diagnostics?.reset(); this.context=this.readContext(); this.nextUpdate=0; this.refresh();
     }
     update(time, running) {
         const changed=this.running!==running;this.running=running;
@@ -3677,27 +3688,27 @@ class PerformancePanel {
         const ms=value=>value.toFixed(2);
         set(n.fps,"textContent",s.fps===null?"—":s.fps.toFixed(1));
         set(n.interval,"textContent",ms(s.maxInterval)+" ms");
-        set(n.total,"textContent",ms(m.total)+" ms");
+        set(n.total,"textContent",ms(m.callback)+" ms");
         set(n.logic,"textContent",ms(m.logic)+" ms");
         set(n.background,"textContent",ms(m.background)+" ms");
         set(n.notes,"textContent",ms(m.notes)+" ms");
         set(n.effects,"textContent",ms(m.effects)+" ms");
-        set(n.hud,"textContent",ms(m.hud)+" ms");
+        if(n.hud)set(n.hud,"textContent",ms(m.hud)+" ms");
         set(n.counts,"textContent",`${c.notes} Note · ${c.bursts+c.sustains} 特效`);
     }
     report() {
-        return {format:"ChainModE-performance-v1",createdAt:new Date().toISOString(),
+        return {format:"ChainModE-performance-v2",createdAt:new Date().toISOString(),
             context:this.context,current:this.readContext(),
             measurement:{unit:"milliseconds",scope:"Only scheduled requestAnimationFrame callbacks entering the playing state; opening, pause, results, and synchronous UI redraws are excluded.",
                 fps:"Estimated from main-thread callback intervals, not confirmed displayed frames or screen refresh rate.",
-                timings:"JavaScript and Canvas command submission. Does not measure complete GPU, raster, or compositor time.",
+                timings:"Elapsed wall time of JavaScript and Canvas command submission, not CPU utilization or pure CPU compute time. GPU/raster/compositor completion is not measured.",
                 counters:"Logical Note/body/chord/effect counts; effectImages counts submitted effect images, not GPU draw calls.",
                 window:"Last 600 samples; totals cover this capture. Timeline retains up to 600 one-second sampled-time buckets; worstFrames retains the 32 largest max(interval,cpu).",
                 gaps:"Fixed interval thresholds are descriptive counts, not a claim of missed display frames.",
-                monitor:"Timed CPU work includes intermediate sampling and panel updates, but excludes final numeric bookkeeping in end(). Frame intervals include both. During steady play the panel updates at most twice per second. Percentiles/export run only on explicit request.",
+                monitor:"total is the legacy body duration; callback also includes end() aggregation and diagnostic frame-context capture. profilerEnd measures that tail separately. The final two series writes and row fix-up after the closing timestamp remain outside callback. Compare off/record-only/display on the same device. Panel refresh stays at most twice per second during steady play.",
                 attribution:"An interval ends at the current callback start; the preceding frame may have caused it. Worst frames include preceding-frame CPU phases and counts, without claiming GPU attribution.",
                 delivery:"Local download only. No automatic upload or persistent per-frame storage."},
-            performance:this.profiler.snapshot()};
+            performance:this.profiler.snapshot(),diagnostics:this.diagnostics?.snapshot()||null};
     }
 }
 exports.PerformancePanel=PerformancePanel;
@@ -3724,8 +3735,9 @@ class FrameProfiler {
         this.worst = Array.from({length:32}, () => new Float64Array(2*this.rowSize));
         this.worstCount = 0; this.worstIndex = 0; this.worstThreshold = 0;
         this.over25 = 0; this.over50 = 0; this.over100 = 0;
+        this.diagnosticError=null;this.callbackElapsed=0;this.recorderEndElapsed=0;
         if (this.enabled) {
-            for (const name of ["frameInterval", ...PHASES, "notesAndEffects", "total"]) this.series.set(name, this.newSeries());
+            for (const name of ["frameInterval", ...PHASES, "notesAndEffects", "total", "callback", "profilerEnd"]) this.series.set(name, this.newSeries());
             for (const name of COUNTERS) this.counterSeries.set(name, this.newSeries());
         }
     }
@@ -3756,9 +3768,9 @@ class FrameProfiler {
         this.interval = this.previousStart === null ? null : Math.max(0, time-this.previousStart);
         if (this.interval !== null) {
             this.sample("frameInterval", this.interval); this.elapsed += this.interval;
-            if (this.interval > 25) this.over25++;
-            if (this.interval > 50) this.over50++;
-            if (this.interval > 100) this.over100++;
+            if (this.interval > 25+1e-6) this.over25++;
+            if (this.interval > 50+1e-6) this.over50++;
+            if (this.interval > 100+1e-6) this.over100++;
         }
         this.previousStart = this.start = this.last = time; this.position = null;
         this.currentPhases.fill(0);
@@ -3774,18 +3786,28 @@ class FrameProfiler {
     }
     end() {
         if (!this.frameActive) return;
-        const total = Math.max(0, this.now()-this.start);
+        this.bodyEndedAt = this.now();
+        const total = this.bodyElapsed = Math.max(0, this.bodyEndedAt-this.start);
         this.sample("total", total);
-        if (this.currentPhases[3] || this.currentPhases[2]) this.sample("notesAndEffects", this.currentPhases[2]+this.currentPhases[3]);
+        this.sample("notesAndEffects", this.currentPhases[2]+this.currentPhases[3]);
         for (const name of COUNTERS) this.append(this.counterSeries.get(name), this.currentCounters[name]);
         this.frames++;
         this.aggregate(total); this.rememberWorst(total); this.frameActive = false;
+        try { this.onEnd?.(this); } catch(error) { this.diagnosticError=String(error?.name||"diagnostic-error"); }
+        const end=this.now();
+        this.callbackElapsed=Math.max(0,end-this.start);
+        this.recorderEndElapsed=Math.max(0,end-this.bodyEndedAt);
+        this.sample("callback",this.callbackElapsed);this.sample("profilerEnd",this.recorderEndElapsed);
+        const b=this.bucket;
+        b.callbackSum+=this.callbackElapsed;b.maxCallback=Math.max(b.maxCallback,this.callbackElapsed);
+        b.overheadSum+=this.recorderEndElapsed;b.maxOverhead=Math.max(b.maxOverhead,this.recorderEndElapsed);
+        try { this.onComplete?.(this); } catch(error) { this.diagnosticError=String(error?.name||"diagnostic-error"); }
     }
     aggregate(total) {
         const second = Math.floor(this.elapsed/1000);
         if (!this.bucket || this.bucket.second !== second) {
             this.bucket = {second, from:this.position, to:this.position, frames:0, intervalSamples:0, intervalSum:0,
-                maxInterval:0, cpuSum:0, maxCpu:0, over25:0, over50:0, over100:0,
+                maxInterval:0, cpuSum:0, maxCpu:0, callbackSum:0,maxCallback:0,overheadSum:0,maxOverhead:0,over25:0, over50:0, over100:0,
                 phaseSums:new Float64Array(PHASES.length), phaseMax:new Float64Array(PHASES.length),
                 counterSums:new Float64Array(COUNTERS.length), counterMax:new Float64Array(COUNTERS.length)};
             this.timeline[this.timelineIndex++ % 600] = this.bucket;
@@ -3794,9 +3816,9 @@ class FrameProfiler {
         b.to = this.position; b.frames++; b.cpuSum += total; b.maxCpu = Math.max(b.maxCpu, total);
         if (this.interval !== null) {
             b.intervalSamples++; b.intervalSum += this.interval; b.maxInterval = Math.max(b.maxInterval, this.interval);
-            if (this.interval > 25) b.over25++;
-            if (this.interval > 50) b.over50++;
-            if (this.interval > 100) b.over100++;
+            if (this.interval > 25+1e-6) b.over25++;
+            if (this.interval > 50+1e-6) b.over50++;
+            if (this.interval > 100+1e-6) b.over100++;
         }
         for (let i=0;i<PHASES.length;i++) { b.phaseSums[i] += this.currentPhases[i]; b.phaseMax[i] = Math.max(b.phaseMax[i],this.currentPhases[i]); }
         for (let i=0;i<COUNTERS.length;i++) { const value=this.currentCounters[COUNTERS[i]]; b.counterSums[i] += value; b.counterMax[i] = Math.max(b.counterMax[i],value); }
@@ -3825,7 +3847,7 @@ class FrameProfiler {
     quick() {
         const interval = this.series.get("frameInterval"), mean = interval?.count ? interval.windowSum/Math.min(interval.count,this.capacity) : 0;
         const milliseconds = {}, counters = {};
-        for (const name of ["total", ...PHASES]) { const s=this.series.get(name); milliseconds[name]=s?.count ? s.windowSum/Math.min(s.count,this.capacity) : 0; }
+        for (const name of ["total", "callback", "profilerEnd", ...PHASES]) { const s=this.series.get(name); milliseconds[name]=s?.count ? s.windowSum/Math.min(s.count,this.capacity) : 0; }
         for (const name of COUNTERS) { const s=this.counterSeries.get(name); counters[name]=s?.count ? s.values[(s.count-1)%this.capacity] : 0; }
         return {frames:this.frames, fps:mean>0?1000/mean:null, maxInterval:interval?.max||0, milliseconds, counters};
     }
@@ -3841,10 +3863,11 @@ class FrameProfiler {
         return {enabled:this.enabled,frames:this.frames,windowSize:this.capacity,milliseconds:statistics(this.series),
             counters:statistics(this.counterSeries), totals:{milliseconds:totals(this.series),counters:totals(this.counterSeries)},
             intervalThresholds:{over25ms:this.over25,over50ms:this.over50,over100ms:this.over100},
-            sampledIntervalMilliseconds:this.elapsed,
+            sampledIntervalMilliseconds:this.elapsed,diagnosticError:this.diagnosticError||null,
             timeline:this.timeline.slice().sort((a,b)=>a.second-b.second).map(b=>({second:b.second,chartFrom:b.from,chartTo:b.to,
                 frames:b.frames,fps:b.intervalSum>0?b.intervalSamples*1000/b.intervalSum:null,maxInterval:b.maxInterval,
-                meanCpu:b.cpuSum/b.frames,maxCpu:b.maxCpu,over25ms:b.over25,over50ms:b.over50,over100ms:b.over100,
+                meanCpu:b.cpuSum/b.frames,maxCpu:b.maxCpu,meanCallback:b.callbackSum/b.frames,maxCallback:b.maxCallback,
+                meanRecorderEnd:b.overheadSum/b.frames,maxRecorderEnd:b.maxOverhead,over25ms:b.over25,over50ms:b.over50,over100ms:b.over100,
                 meanMilliseconds:phases(b.phaseSums.map(v=>v/b.frames)),maxMilliseconds:phases(b.phaseMax),
                 meanCounters:counts(b.counterSums.map(v=>v/b.frames)),maxCounters:counts(b.counterMax)})),
             worstFrames:this.worst.slice(0,this.worstCount).sort((a,b)=>b[0]-a[0]).map(r=>({frame:r[1],chartTime:r[2]<0?null:r[2],
@@ -5226,6 +5249,263 @@ class RoundPolicy {
 exports.RoundPolicy = RoundPolicy;
 
 });
+define('./preview-runtime-diagnostics.js', (exports, require) => {
+"use strict";
+const KINDS = {frame:0,pointerdown:1,pointermove:2,pointerup:3,pointercancel:4,lostcapture:5,
+    bounds:6,layout:7,layoutRead:8,resizeRequest:9,heartbeat:10,longtask:11,longFrame:12,
+    recorder:13,resultEntry:14,recordSave:15,resultPrepare:16,pageEvent:17};
+const NAMES = Object.keys(KINDS), COLS = 22, TRACE_CAPACITY = 4096, EPISODE_ROWS = 768;
+const COMMON = ["atMs","kind","elapsedMs","lastChartTime",...Array.from({length:18},(_,i)=>"v"+i)];
+const FIELDS = {
+    frame:["intervalMs","logicMs","backgroundMs","notesMs","effectsMs","hudMs","interfaceMs","panelMs","recorderEndMs","bodyMs","callbackMs","notes","effectImages","touches","judged","backgroundUpdates","frameId","rafTimestampAgeMs"],
+    pointerdown:["pointerId","eventTimestampAgeMs","clientX","clientY","pointerType","accepted"],
+    bounds:["left","top","width","height"], layout:["source"],layoutRead:["width","height"],resizeRequest:["source"],
+    heartbeat:["expectedAtMs","intervalMs","previousTickAtMs"],
+    longtask:["deliveredAtMs"],longFrame:["blockingDurationMs","renderStartMs","styleAndLayoutStartMs","deliveredAtMs"],
+    recorder:["callbackMs","bodyMs"],pageEvent:["source"]
+};
+for(const name of ["pointermove","pointerup","pointercancel","lostcapture"])FIELDS[name]=FIELDS.pointerdown;
+// No independent rAF, DOM reads/writes, storage or uploads. The only periodic
+// probe is one 50ms timeout while a recorded round is actively playing.
+class RuntimeDiagnostics {
+    constructor(options = {}) {
+        this.now = options.now || (()=>performance.now());
+        this.later = options.setTimeout || ((fn,ms)=>setTimeout(fn,ms));
+        this.cancel = options.clearTimeout || (id=>clearTimeout(id));
+        this.Observer = options.Observer === undefined ? globalThis.PerformanceObserver : options.Observer;
+        this.enabled=false;this.running=false;this.timer=null;this.observers=[];this.trace=null;
+        this.onHeartbeat=()=>this.heartbeat();this.reset();
+    }
+    stop() {
+        if(this.running&&this.range) {this.range[1]=this.now()-this.origin;this.range[3]=this.position;}
+        if(this.timer!==null)this.cancel(this.timer);
+        this.timer=null;
+        for(const observer of this.observers)observer.disconnect();
+        this.observers.length=0;this.running=false;
+    }
+    reset() {
+        this.stop();this.started=false;this.origin=null;this.position=null;this.runStartedAt=null;
+        this.head=0;this.events=0;this.activeEpisode=null;this.episodeCount=0;this.lastFrameSlot=-1;
+        this.clockStep=null;this.lastClock=null;this.failure=null;this.scriptDetails=[];
+        this.counts=new Float64Array(NAMES.length);this.sums=new Float64Array(NAMES.length);
+        this.maxima=new Float64Array(NAMES.length);this.over8=new Float64Array(NAMES.length);
+        this.support={longtask:"unsupported",longFrame:"unsupported"};
+        this.previousTick=null;this.expectedTick=null;
+        this.ranges=[];this.range=null;
+        if(this.enabled&&!this.trace) {
+            this.trace=new Float64Array(TRACE_CAPACITY*COLS);
+            this.episodes=Array.from({length:8},()=>({data:new Float64Array(EPISODE_ROWS*COLS)}));
+        }
+        for(const e of this.episodes||[]) { e.count=0;e.peak=0;e.reasons=0;e.end=null;e.finished=false; }
+    }
+    setEnabled(value) {
+        value=!!value;if(value===this.enabled)return;
+        this.enabled=value;
+        if(value)this.reset();else this.stop();
+    }
+    clock() {
+        const time=this.now();
+        if(this.lastClock!==null&&time>this.lastClock) {
+            const step=time-this.lastClock;
+            if(this.clockStep===null||step<this.clockStep)this.clockStep=step;
+        }
+        this.lastClock=time;return time;
+    }
+    setRunning(value, position) {
+        if(Number.isFinite(position))this.position=position;
+        value=!!value&&this.enabled;
+        if(value===this.running)return;
+        if(!value){this.stop();return;}
+        const time=this.clock();
+        if(this.origin===null)this.origin=time;
+        this.started=true;this.running=true;this.runStartedAt=time;
+        this.range=[time-this.origin,null,this.position,this.position];
+        if(this.ranges.length<64)this.ranges.push(this.range);
+        this.previousTick=time;this.expectedTick=time+50;
+        try {this.timer=this.later(this.onHeartbeat,50);this.startObservers();}
+        catch(error){this.failure=String(error?.name||"diagnostic-setup-failed");this.stop();}
+    }
+    taskStart(force=false) {
+        return this.enabled&&(this.running||force&&this.started)?this.clock():-1;
+    }
+    taskEnd(kind, start, a=0,b=0,c=0,d=0,e=0,f=0) {
+        if(start<0||!this.enabled)return;
+        try {
+            const end=this.clock();
+            const offset=this.record(KINDS[kind],start,Math.max(0,end-start),a,b,c,d,e,f);
+            this.consider(offset);
+        } catch(error) {this.failure=String(error?.name||"diagnostic-error");this.stop();}
+    }
+    inputEnd(kind,start,event,accepted) {
+        if(start<0||!this.enabled)return;
+        const stamp=event.timeStamp;
+        const age=Number.isFinite(stamp)&&stamp>=0&&stamp<=start+1&&start-stamp<=60000?Math.max(0,start-stamp):-1;
+        this.taskEnd(kind,start,event.pointerId??-1,age,event.clientX??0,event.clientY??0,
+            event.pointerType==="touch"?1:event.pointerType==="pen"?2:0,accepted?1:0);
+    }
+    instant(kind, source=0) {
+        const time=this.taskStart();if(time<0)return;
+        this.record(KINDS[kind],time,0,source);
+    }
+    heartbeat() {
+        this.timer=null;if(!this.enabled||!this.running)return;
+        try {
+            const time=this.clock(), late=Math.max(0,time-this.expectedTick);
+            const offset=this.record(KINDS.heartbeat,time,late,this.expectedTick-this.origin,50,this.previousTick-this.origin);
+            this.consider(offset);this.previousTick=time;this.expectedTick=time+50;
+            this.timer=this.later(this.onHeartbeat,50);
+        } catch(error) {this.failure=String(error?.name||"diagnostic-error");this.stop();}
+    }
+    startObservers() {
+        const types=this.Observer?.supportedEntryTypes||[];
+        for(const [type,key,kind] of [["longtask","longtask",KINDS.longtask],["long-animation-frame","longFrame",KINDS.longFrame]]) {
+            if(!types.includes(type))continue;
+            let observer;
+            try {
+                observer=new this.Observer(list=>{
+                    if(!this.enabled||!this.running)return;
+                    const delivered=this.clock();
+                    for(const entry of list.getEntries()) {
+                        if(!Number.isFinite(entry.startTime)||entry.startTime<this.runStartedAt||!Number.isFinite(entry.duration))continue;
+                        if(kind===KINDS.longtask) {
+                            const offset=this.record(kind,entry.startTime,entry.duration,delivered-this.origin);this.consider(offset);
+                        }
+                        else {
+                            const offset=this.record(kind,entry.startTime,entry.duration,entry.blockingDuration||0,
+                                entry.renderStart?entry.renderStart-this.origin:-1,entry.styleAndLayoutStart?entry.styleAndLayoutStart-this.origin:-1,delivered-this.origin);
+                            this.consider(offset);
+                            // Optional browser-provided attribution, bounded and without URLs.
+                            if(this.scriptDetails.length<16)for(const script of (entry.scripts||[]).slice(0,4)) {
+                                if(this.scriptDetails.length>=16)break;
+                                this.scriptDetails.push({atMs:entry.startTime-this.origin,duration:script.duration,
+                                    function:String(script.sourceFunctionName||"").slice(0,80),invoker:String(script.invokerType||"").slice(0,60),
+                                    forcedStyleAndLayoutDuration:script.forcedStyleAndLayoutDuration||0});
+                            }
+                        }
+                    }
+                });
+                observer.observe({type});this.observers.push(observer);this.support[key]="available";
+            } catch(error) {observer?.disconnect();this.support[key]="unavailable:"+String(error?.name||"error");}
+        }
+    }
+    record(kind, at, duration, a=0,b=0,c=0,d=0,e=0,f=0) {
+        if(!this.enabled||!this.trace||this.origin===null||kind===undefined)return -1;
+        const offset=(this.head%TRACE_CAPACITY)*COLS;
+        this.trace.fill(0,offset,offset+COLS);
+        this.trace[offset]=at-this.origin;this.trace[offset+1]=kind;this.trace[offset+2]=duration;
+        this.trace[offset+3]=this.position??-1;
+        this.trace[offset+4]=a;this.trace[offset+5]=b;this.trace[offset+6]=c;
+        this.trace[offset+7]=d;this.trace[offset+8]=e;this.trace[offset+9]=f;
+        this.head++;this.events++;this.counts[kind]++;this.sums[kind]+=duration;
+        this.maxima[kind]=Math.max(this.maxima[kind],duration);if(duration>8+1e-6)this.over8[kind]++;
+        const time=at-this.origin;
+        if(this.activeEpisode&&(time>this.activeEpisode.until||this.activeEpisode.count>=EPISODE_ROWS)) {
+            this.activeEpisode.finished=true;this.activeEpisode=null;
+        }
+        if(this.activeEpisode)this.appendEpisode(this.activeEpisode,offset);
+        return offset;
+    }
+    appendEpisode(episode,offset) {
+        if(episode.count>=EPISODE_ROWS)return;
+        const to=episode.count++*COLS;
+        for(let i=0;i<COLS;i++)episode.data[to+i]=this.trace[offset+i];
+        episode.end=this.trace[offset];
+    }
+    trigger(offset,severity) {
+        if(offset<0||!Number.isFinite(severity))return;
+        const time=this.trace[offset],kind=this.trace[offset+1];
+        if(this.activeEpisode&&time<=this.activeEpisode.until) {
+            this.activeEpisode.peak=Math.max(this.activeEpisode.peak,severity);
+            this.activeEpisode.reasons|=1<<kind;this.activeEpisode.until=Math.max(this.activeEpisode.until,time+500);return;
+        }
+        let slot;
+        if(this.episodeCount<this.episodes.length)slot=this.episodes[this.episodeCount++];
+        else {
+            slot=this.episodes[0];
+            for(const item of this.episodes)if(item.peak<slot.peak)slot=item;
+            if(severity<=slot.peak)return;
+        }
+        slot.count=0;slot.peak=severity;slot.reasons=1<<kind;slot.trigger=time;slot.until=time+500;slot.end=null;slot.finished=false;
+        // Preallocated context: up to 1.5s / 576 preceding records plus post-event
+        // records. Capacity limits are exposed instead of claiming a full trace.
+        const start=Math.max(0,this.head-Math.min(576,TRACE_CAPACITY));
+        for(let i=start;i<this.head;i++) {
+            const row=(i%TRACE_CAPACITY)*COLS;
+            if(this.trace[row]>=time-1500)this.appendEpisode(slot,row);
+        }
+        this.activeEpisode=slot;
+    }
+    consider(offset) {
+        if(offset<0)return;
+        const kind=this.trace[offset+1],duration=this.trace[offset+2];
+        if(kind===KINDS.heartbeat) {if(duration>30+1e-6)this.trigger(offset,duration);}
+        else if(kind===KINDS.longtask||kind===KINDS.longFrame||duration>4+1e-6)this.trigger(offset,duration);
+    }
+    captureFrame(p) {
+        if(!this.enabled||!this.started)return;
+        this.position=p.position;
+        const row=this.record(KINDS.frame,p.start,p.bodyElapsed,p.interval??-1);
+        if(row<0)return;
+        for(let i=0;i<7;i++)this.trace[row+5+i]=p.currentPhases[i];
+        this.trace[row+12]=0;this.trace[row+13]=p.bodyElapsed;this.trace[row+14]=p.bodyElapsed;
+        const c=p.currentCounters;
+        this.trace[row+15]=c.notes;this.trace[row+16]=c.effectImages;this.trace[row+17]=c.touches;
+        this.trace[row+18]=c.judged;this.trace[row+19]=c.backgroundUpdates;this.trace[row+20]=p.frames;
+        this.trace[row+21]=Number.isFinite(p.rafTimestamp)?Math.max(0,p.start-p.rafTimestamp):-1;
+        this.lastFrameSlot=row;
+        if((p.interval||0)>40+1e-6||p.bodyElapsed>8+1e-6)this.trigger(row,Math.max(p.interval||0,p.bodyElapsed));
+        // record() may have copied the row before its frame-specific columns.
+        if(this.activeEpisode&&this.activeEpisode.count) {
+            const last=(this.activeEpisode.count-1)*COLS;
+            if(this.activeEpisode.data[last]===this.trace[row]&&this.activeEpisode.data[last+1]===KINDS.frame)
+                for(let i=0;i<COLS;i++)this.activeEpisode.data[last+i]=this.trace[row+i];
+        }
+    }
+    completeFrame(p) {
+        const row=this.lastFrameSlot;if(row<0||!this.enabled)return;
+        const body=this.trace[row+2];
+        this.sums[KINDS.frame]+=p.callbackElapsed-body;
+        this.maxima[KINDS.frame]=Math.max(this.maxima[KINDS.frame],p.callbackElapsed);
+        if(body<=8+1e-6&&p.callbackElapsed>8+1e-6)this.over8[KINDS.frame]++;
+        this.trace[row+2]=p.callbackElapsed;this.trace[row+12]=p.recorderEndElapsed;this.trace[row+14]=p.callbackElapsed;
+        if(this.activeEpisode&&this.activeEpisode.count) {
+            const last=(this.activeEpisode.count-1)*COLS;
+            if(this.activeEpisode.data[last]===this.trace[row]&&this.activeEpisode.data[last+1]===KINDS.frame)
+                for(let i=0;i<COLS;i++)this.activeEpisode.data[last+i]=this.trace[row+i];
+        }
+        if(p.recorderEndElapsed>4+1e-6) {
+            const offset=this.record(KINDS.recorder,p.bodyEndedAt,p.recorderEndElapsed,p.callbackElapsed,p.bodyElapsed);
+            this.consider(offset);
+        }
+        this.lastFrameSlot=-1;
+    }
+    snapshot() {
+        const rows=(data,count)=>Array.from({length:count},(_,i)=>Array.from(data.subarray(i*COLS,(i+1)*COLS)));
+        const recent=[];
+        for(let i=Math.max(0,this.head-96);i<this.head;i++)recent.push(Array.from(this.trace.subarray((i%TRACE_CAPACITY)*COLS,(i%TRACE_CAPACITY+1)*COLS)));
+        return {enabled:this.enabled,capturing:this.running,events:this.events,heartbeatIntervalMs:50,
+            observerSupport:{...this.support},observedPositiveClockStepMs:this.clockStep,failure:this.failure,
+            activeRanges:this.ranges.map(r=>r.slice()),activeRangeColumns:["startAtMs","endAtMs","chartStart","chartEnd"],
+            statistics:Object.fromEntries(NAMES.map((name,i)=>[name,{count:this.counts[i],meanMs:this.counts[i]?this.sums[i]/this.counts[i]:null,maxMs:this.maxima[i],over8ms:this.over8[i]}])),
+            columns:COMMON,kindCodes:KINDS,fieldsByKind:FIELDS,pointerTypes:{mouse:0,touch:1,pen:2},
+            layoutSources:{other:0,window:1,visualViewport:2,resizeObserver:3,orientation:4,fullscreen:5},
+            pageEventSources:{hidden:1,visible:2,pagehide:3,pageshow:4},
+            limits:{traceRows:TRACE_CAPACITY,episodes:8,rowsPerEpisode:EPISODE_ROWS,preRecords:576,preMs:1500,postMs:500,recentExportRows:96},
+            episodes:(this.episodes||[]).slice(0,this.episodeCount).sort((a,b)=>a.trigger-b.trigger).map(e=>({triggerAtMs:e.trigger,peak:e.peak,
+                reasons:NAMES.filter((_,i)=>e.reasons&(1<<i)),fromMs:e.count?e.data[0]:null,toMs:e.end,postComplete:e.finished,rows:rows(e.data,e.count)})),
+            recent,scriptAttribution:this.scriptDetails.slice(),
+            notes:["All durations are elapsed wall time, not CPU utilization or hardware touch latency.",
+                "Event timestamp age is recorded only when the timestamp appears to share the performance clock; -1 means unknown.",
+                "Timer/rAF comparisons narrow scheduling questions but do not identify GPU, GC, or OS causes by themselves.",
+                "Unsupported observer APIs mean unavailable data, not zero long tasks.",
+                "Rows retain completion order; nested task start times may be out of order. Sort only after capture.",
+                "Context is bounded, sampled during active play; buffer saturation and pausing can truncate post-context."]};
+    }
+}
+exports.RuntimeDiagnostics=RuntimeDiagnostics;
+exports.KINDS=KINDS;
+
+});
 define('./preview-score.js', (exports, require) => {
 "use strict";
 // Display only. This module never derives a score from notes or judgments.
@@ -5725,8 +6005,9 @@ const { nativeBonuses } = require("./preview-native-result.js");
 const { ResultRenderer } = require("./preview-result.js");
 const { FrameProfiler } = require("./preview-performance.js");
 const { PerformancePanel } = require("./preview-performance-panel.js");
+const { RuntimeDiagnostics } = require("./preview-runtime-diagnostics.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.2.1";
+const VERSION = "0.2.2";
 const elements = new Map();
 const E = id => {
     const node = elements.get(id) || document.getElementById(id);
@@ -5810,6 +6091,9 @@ async function start() {
         tile: resultTile, canvas: E("result-canvas"), shadeCanvas: E("result-shade"), retryButton: E("result-retry") });
     const viewport = E("viewport"), stage = E("stage"), overlay = E("pause-overlay");
     const pauseLayout = overlay.querySelector(".pause-layout"), profiler = new FrameProfiler();
+    const diagnostics = new RuntimeDiagnostics();
+    profiler.onEnd = p => diagnostics.captureFrame(p);
+    profiler.onComplete = p => diagnostics.completeFrame(p);
     const playButton = E("play"), restartButton = E("restart"), progress = E("timeline");
     const packageInput = E("cbt-file"), chartSelect = E("chart-select"), presetInput = E("preset-file");
     const earlyLate = E("early-late"), fullGauge = E("full-gauge");
@@ -5852,17 +6136,17 @@ async function start() {
             renderer.drawNotes(chart, at); renderer.drawHud(score.value, chart, at);
         }
     }
-    function resize() { if (page) page.resize(); else scaleStage(); }
+    function resize(source=0) { if (page) page.resize(false,source); else scaleStage(); }
     placeSprite(sceneButton, { ...assets.scene.pauseButton, anchor: [0.5, 0.5] }, assets.atlas, assets.images, sceneHeight);
     for (const [part, id] of [["panel", "pause-panel"], ["continue", "continue"], ["retry", "retry"], ["retire", "retire"], ["ready", "ready-cue"], ["go", "go-cue"]])
         placeSprite(E(id), assets.pausePlacements[part], assets.pauseAtlas, assets.images, sceneHeight);
-    page = new StandalonePage({ pane: E("preview-pane"), main: E("preview-main"), button: E("page-fullscreen"), ratio: sceneWidth / sceneHeight, size: [sceneWidth, sceneHeight], canToggle: () => !!chart && !loading && !preparing, onChange: () => judgment.clearInput(), resize:scaleStage });
+    page = new StandalonePage({ pane: E("preview-pane"), main: E("preview-main"), button: E("page-fullscreen"), ratio: sceneWidth / sceneHeight, size: [sceneWidth, sceneHeight], canToggle: () => !!chart && !loading && !preparing, onChange: () => judgment.clearInput(), resize:scaleStage, diagnostics });
     if (typeof ResizeObserver === "function") {
-        const observer = new ResizeObserver(resize);
+        const observer = new ResizeObserver(()=>resize(3));
         observer.observe(viewport); observer.observe(E("preview-pane").querySelector(".preview-plate"));
     }
-    window.addEventListener("resize", resize);
-    globalThis.visualViewport?.addEventListener("resize", resize);
+    window.addEventListener("resize", ()=>resize(1));
+    globalThis.visualViewport?.addEventListener("resize", ()=>resize(2));
     function resetGauge() {
         const previous = records.get(recordId);
         gauge.reset(round.mode, judgment.nodes.length, judgment.halfCount, previous.queenAttempts, fullGauge.checked);
@@ -5875,6 +6159,8 @@ async function start() {
     function clearResult() { resultRenderer.clear(); resultSnapshot = null; }
     function finishRound(death = false) {
         if (resultSnapshot || !round.active) return;
+        const entryAt=diagnostics.taskStart(true);
+        try {
         if (death) { gauge.hp = 0; gauge.commitFrame(performance.now()/1000); }
         const position = transport.position();
         transport.pause(); transport.cursor = position; transport.state = "ended";
@@ -5882,15 +6168,19 @@ async function start() {
         const recordable = round.recordable, clearType = gauge.result(judgment.counts);
         const snapshot = { ...judgment.snapshot(), fastSlow: earlyLate.checked, mode: round.mode, clearType, completed: round.mode === "queens-room" && gauge.hp > 0,
             death, rank: rankForScore(judgment.score), recordable, nonUnitRate: round.usedNonUnitRate };
-        const saved = records.finish(recordId, snapshot);
+        const saveAt=diagnostics.taskStart(true);let saved;
+        try { saved = records.finish(recordId, snapshot); }
+        finally { diagnostics.taskEnd("recordSave",saveAt); }
         snapshot.saved = saved.saved; snapshot.newRecords = saved.flags;
         const level = Number.parseInt(currentEntry()?.level, 10) || 0;
         snapshot.coins = nativeBonuses({ level, rank: snapshot.rank, clearType,
             hard: round.mode === "hard-on" || round.mode === "queens-room", oldClearType: saved.previous.clearType,
             doubleReward: project.manifest.category?.pickup === true });
         round.end(); resultSnapshot = snapshot;
-        resultRenderer.show(snapshot, performance.now()/1000, { title: project.manifest.title, difficulty: currentEntry().difficulty });
-
+        const prepareAt=diagnostics.taskStart(true);
+        try {resultRenderer.show(snapshot, performance.now()/1000, { title: project.manifest.title, difficulty: currentEntry().difficulty });}
+        finally {diagnostics.taskEnd("resultPrepare",prepareAt);}
+        } finally { diagnostics.taskEnd("resultEntry",entryAt); }
     }
     function syncPolicy(menu = false) {
         const busy = loading || preparing, locked = round.locked, result = resultRenderer.active;
@@ -5911,9 +6201,10 @@ async function start() {
         presetInput.disabled = busy || importingPresets || !round.free;
 
     }
-    function draw(scheduled = false) {
+    function draw(scheduled = false, rafTimestamp = null) {
         const now = performance.now()/1000;
         profiler.begin(now*1000, scheduled && transport.state === "playing");
+        profiler.rafTimestamp=rafTimestamp;
         const judgedBefore = profiler.frameActive ? judgment.judgedCount : 0;
         if (transport.state === "playing") {
             if (lastFrameTime !== null) maxFrameGap = Math.max(maxFrameGap, now-lastFrameTime);
@@ -5924,6 +6215,7 @@ async function start() {
         if (pendingDeath && !resultSnapshot) finishRound(true);
         const previousState = transport.state, position = transport.update(), state = transport.state;
         const chartTime = state === "ready" && position === 0 ? -0.000001 : position;
+        diagnostics.setRunning(state === "playing" && !resultSnapshot,chartTime);
         if (!resultSnapshot && chart && (state === "playing" || state === "ended" && previousState === "playing")) {
             if (previousChartTime !== null) {
                 maxChartStep = Math.max(maxChartStep, position-previousChartTime);
@@ -6003,7 +6295,7 @@ async function start() {
         if (resultFrame.retryFinished) { reset(); void play(); return; }
         const colorPending = gauge.colorStart !== null && now - gauge.colorStart < .5;
         if ((running || pendingDeath || score.pending || gauge.pending || colorPending || resultFrame.animating) && frame === null)
-            frame = requestAnimationFrame(() => { frame = null; draw(true); });
+            frame = requestAnimationFrame(stamp => { frame = null; draw(true,stamp); });
     }
     function pause(menu = false) {
         ++actionSerial; preparing = false; requestedPause = menu;
@@ -6252,21 +6544,35 @@ async function start() {
         (transport.state === "playing" || transport.state === "opening" ||
             transport.state === "countdown" && transport.openingElapsed() >= MENU_EXIT_SECONDS);
     viewport.addEventListener("pointerdown", event => {
+        const eventAt=diagnostics.taskStart();let accepted=false;
+        try {
         if (event.target.closest("button,[role=dialog]") || event.pointerType === "mouse" && event.button !== 0 || !acceptsInput()) return;
+        accepted=true;
         event.preventDefault();
         viewport.setPointerCapture(event.pointerId);
         judgment.touches.begin(event.pointerId, ...inputPosition(event));
         E("score").dataset.lastInput = inputPosition(event).map(Math.round).join(",");
+        } finally {diagnostics.inputEnd("pointerdown",eventAt,event,accepted);}
     });
     viewport.addEventListener("pointermove", event => {
         if (!judgment.touches.active.has(event.pointerId)) return;
+        const eventAt=diagnostics.taskStart();
+        try {
         event.preventDefault(); judgment.touches.move(event.pointerId, ...inputPosition(event));
+        } finally {diagnostics.inputEnd("pointermove",eventAt,event,true);}
     });
     for (const kind of ["pointerup", "pointercancel"]) viewport.addEventListener(kind, event => {
         if (!judgment.touches.active.has(event.pointerId)) return;
+        const eventAt=diagnostics.taskStart();
+        try {
         event.preventDefault(); judgment.touches.end(event.pointerId, ...inputPosition(event));
+        } finally {diagnostics.inputEnd(kind,eventAt,event,true);}
     });
-    viewport.addEventListener("lostpointercapture", event => { judgment.touches.active.delete(event.pointerId); });
+    viewport.addEventListener("lostpointercapture", event => {
+        const eventAt=diagnostics.taskStart();
+        const accepted=judgment.touches.active.delete(event.pointerId);
+        diagnostics.inputEnd("lostcapture",eventAt,event,accepted);
+    });
     viewport.addEventListener("contextmenu", event => { if (acceptsInput()) event.preventDefault(); });
     viewport.addEventListener("dblclick", event => {
         if (resultRenderer.active || !overlay.hidden || transport.waiting || !autoPlay.checked) { event.preventDefault(); event.stopPropagation(); }
@@ -6343,9 +6649,9 @@ async function start() {
         if (event.target?.closest?.("input,select,textarea,button,summary,a,[contenteditable]")) return;
         if (event.key === " " || event.key === "Enter") { event.preventDefault(); toggle(); }
     });
-    document.addEventListener("visibilitychange", () => { if (document.hidden) pause(true); });
-    window.addEventListener("pagehide", () => pause(false));
-    window.addEventListener("pageshow", () => { resize(); draw(); });
+    document.addEventListener("visibilitychange", () => { diagnostics.instant("pageEvent",document.hidden?1:2);if (document.hidden) pause(true); });
+    window.addEventListener("pagehide", () => {diagnostics.instant("pageEvent",3);pause(false);});
+    window.addEventListener("pageshow", () => {diagnostics.instant("pageEvent",4);resize(); draw();});
     function performanceContext() {
         return {version:VERSION,title:project?.manifest.title||"",chartId:activeId,difficulty:currentEntry()?.difficulty||"",
             mode:round.mode,autoPlay:autoPlay.checked,rate:transport.playbackRate,hiSpeed:hiSpeed.valueAsNumber,
@@ -6357,11 +6663,11 @@ async function start() {
             canvases:Object.fromEntries(["backdrop","notes","hud"].map(id=>[id,{width:E(id).width,height:E(id).height}])),
             fullscreen:page.snapshot()};
     }
-    performancePanel = new PerformancePanel({profiler,readContext:performanceContext,
+    performancePanel = new PerformancePanel({profiler,diagnostics,readContext:performanceContext,
         nodes:{tracking:E("performance-tracking"),visible:E("performance-visible"),options:E("performance-options"),
             panel:E("performance-panel"),export:E("performance-export"),clear:E("performance-clear"),status:E("performance-status"),
             fps:E("perf-fps"),total:E("perf-total"),interval:E("perf-interval"),logic:E("perf-logic"),
-            background:E("perf-background"),notes:E("perf-notes"),effects:E("perf-effects"),hud:E("perf-hud"),counts:E("perf-counts")},
+            background:E("perf-background"),notes:E("perf-notes"),effects:E("perf-effects"),counts:E("perf-counts")},
         download(report) {
             try {
                 const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:"application/json"}));
@@ -6377,7 +6683,10 @@ async function start() {
             performancePanel.setEnabled(value);draw();return true;
         },
         readPerformance() { return profiler.snapshot(); },
-        readPerformanceReport() { return performancePanel.report(); },
+        readPerformanceReport() {
+            if(transport.state==="playing"||transport.waiting)return {error:"请先暂停或结束再读取完整性能报告。"};
+            return performancePanel.report();
+        },
         readState() {
             return { version: VERSION, chartId: activeId, chartIds: project ? Object.keys(project.manifest.charts) : [],
                 title: project?.manifest.title || "", state: transport.state, position: transport.position(), duration: chart ? transport.duration : 0,
