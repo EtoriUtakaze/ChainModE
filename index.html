@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainPhyT：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainPhyT v0.2.6beta</title>
+<title>ChainPhyT v0.2.7</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -42,7 +42,7 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>PhyT</span></h1><span class="version">v0.2.6beta</span></div>
+    <div class="brand"><h1>Chain<span>PhyT</span></h1><span class="version">v0.2.7</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -1878,7 +1878,7 @@ function makeNode(note, type, scoring) {
     return { note, type, scoring, half: type === 62, edge: type === 62 && (note.type === 60 || note.type === 61),
         time: f(note.time), position: position(note), basePosition: position(note), state: "wait", judged: false, grade: 0,
         removeJudge: 0, active: false, visible: true, erased: false, stopped: false, grayout: false,
-        previous: null, next: null, head: null, view: null, releaseTime: Infinity };
+        previous: null, next: null, head: null, view: null, noteView: null, sustainView: null, releaseTime: Infinity };
 }
 class JudgmentSession {
     constructor(chart = null, autoPlay = false) { this.touches = new TouchManager(); this.clock = new PlaybackTimeMap(); this.playbackRate = 1; this.onJudge = null; this.speed = NOTE_SPEED_BASE * HI_SPEED.initial; this.reset(chart, autoPlay); }
@@ -2206,8 +2206,10 @@ class JudgmentSession {
             }
             const target = next?.note;
             const rotation = target ? Math.atan2(target.x - x, 100 + (target.scroll - scroll) * this.speed - y) : 0;
-            node.view = { x, y, rotation, grayout: node.grayout, anchor: node.anchor || node.note, next: target || null,
-                endY: target ? 100 + (target.scroll - scroll) * this.speed : null };
+            const view = node.view;
+            view.x = x; view.y = y; view.rotation = rotation; view.grayout = node.grayout;
+            view.anchor = node.anchor || node.note; view.next = target || null;
+            view.endY = target ? 100 + (target.scroll - scroll) * this.speed : null;
         }
     }
     visible(note) { const node = this.visualBySource.get(note.sourceIndex); return !!node && node.visible && !node.erased && !node.middleHidden; }
@@ -2215,7 +2217,15 @@ class JudgmentSession {
         const node = this.visualBySource.get(note.sourceIndex);
         if (!node || !this.visible(note) || node.stopped || node.type === 62) return null;
         const head = node.head;
-        return node.view && { ...node.view, grayout: node.type === 61 && head ? head.grayout : node.grayout };
+        const view = node.view;
+        if (!view) return view;
+        // Each note owns its output; a LongChain tail's gray override must not change its base view.
+        const output = node.noteView || (node.noteView = {});
+        output.x = view.x; output.y = view.y; output.rotation = view.rotation;
+        output.grayout = node.type === 61 && head ? head.grayout : node.grayout;
+        output.anchor = view.anchor; output.next = view.next;
+        if ("endY" in view) output.endY = view.endY;
+        return output;
     }
     drawingNotes(output = []) {
         output.length = 0;
@@ -2239,8 +2249,14 @@ class JudgmentSession {
     sustainVisual(sustain, time) {
         const head = this.visualBySource.get(sustain.start.sourceIndex);
         if (!head?.stopped || !head.view || head.erased && !Number.isFinite(head.releaseTime)) return null;
-        return { ...head.view, startedAt: head.judgedAt ?? head.stopRealTime ?? this.animationTime(head.stopTime), release: head.releaseTime, released: head.erased,
-            grayout: head.grayout, node: head };
+        const view = head.view;
+        const output = head.sustainView || (head.sustainView = {});
+        output.x = view.x; output.y = view.y; output.rotation = view.rotation; output.grayout = head.grayout;
+        output.anchor = view.anchor; output.next = view.next;
+        if ("endY" in view) output.endY = view.endY;
+        output.startedAt = head.judgedAt ?? head.stopRealTime ?? this.animationTime(head.stopTime);
+        output.release = head.releaseTime; output.released = head.erased; output.node = head;
+        return output;
     }
     bodyVisual(start, end) {
         const sustain = this.sustainBySource.get(start.sourceIndex);
@@ -6156,7 +6172,7 @@ const { PerformancePanel } = require("./preview-performance-panel.js");
 const { RuntimeDiagnostics } = require("./preview-runtime-diagnostics.js");
 const { shareReportFile } = require("./preview-report-share.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.2.6beta";
+const VERSION = "0.2.7";
 const elements = new Map();
 const E = id => {
     const node = elements.get(id) || document.getElementById(id);
