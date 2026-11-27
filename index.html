@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111015">
 <meta name="description" content="ChainPhyT：ChainBeeT 谱面游玩模拟器。导入 CBT，使用原版画面和自定义预设预览谱面。">
-<title>ChainPhyT v0.2.10</title>
+<title>ChainPhyT v0.3.1</title>
 <style>:root {color-scheme:dark;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-synthesis:none;color:#eeeaf3;background:#111015;--muted:#b2aabc;--border:#38313f;--accent:#f4c989;--panel:#1c1921;--control:#292331;}
 * {box-sizing:border-box;}[hidden] {display:none!important;}body {margin:0;}button,input,select {font:inherit;}button,select,.file-pick {cursor:pointer;}button,input,select {accent-color:var(--accent);}button:disabled,input:disabled,select:disabled {opacity:.45;cursor:default;}button,select,input[type=number],.file-pick {border:1px solid #514558;border-radius:7px;background:var(--control);color:#f5effa;min-height:44px;}button {padding:8px 16px;touch-action:manipulation;}button:hover:not(:disabled),.file-pick:hover {border-color:#bfa17b;}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:3px;}button.primary,.file-pick.primary {background:#f2c88b;border-color:#f2c88b;color:#241a13;font-weight:650;}input[type=range] {display:block;width:100%;min-height:36px;margin:0;touch-action:pan-y;}select {width:100%;padding:8px 32px 8px 12px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%23c7bccf' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}input[type=number] {min-width:0;width:72px;padding:6px 8px;text-align:right;}
 #preview-main {width:min(1420px,calc(100% - 48px));margin:0 auto;padding:24px 0 20px;}.app-header {display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px;}.brand {display:flex;align-items:baseline;gap:12px;min-width:0;}h1 {font-size:26px;letter-spacing:-.7px;margin:0;font-weight:750;}h1 span {color:var(--accent);font-weight:450;}.version {font-size:13px;color:var(--muted);}.file-pick {position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px 17px;font-size:15px;white-space:nowrap;}.file-pick input {position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}.file-pick:focus-within {outline:2px solid var(--accent);outline-offset:3px;}.file-pick:has(input:disabled) {opacity:.45;cursor:default;}.notice {font-size:15px;line-height:1.6;padding:12px 16px;background:#26202d;border:1px solid #514258;border-radius:8px;margin:0 0 14px;overflow-wrap:anywhere;}.error {color:#ffd1cd;background:#382126;border-color:#694047;}.track-bar {display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:92px;padding-bottom:20px;}.track-copy {min-width:0;}h2 {font-size:21px;line-height:1.45;margin:0 0 5px;overflow-wrap:anywhere;}#track-detail {font-size:14px;line-height:1.6;color:var(--muted);margin:0;overflow-wrap:anywhere;}.chart-field {display:grid;gap:6px;min-width:200px;max-width:40%;font-size:14px;color:var(--muted);}
@@ -42,7 +42,7 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
 <body>
 <main id="preview-main">
   <header class="app-header">
-    <div class="brand"><h1>Chain<span>PhyT</span></h1><span class="version">v0.2.10</span></div>
+    <div class="brand"><h1>Chain<span>PhyT</span></h1><span class="version">v0.3.1</span></div>
     <label class="file-pick primary">导入 CBT<input id="cbt-file" type="file" aria-label="导入 CBT 谱面包" disabled></label>
   </header>
   <noscript><p class="notice error">此查看器未执行网页脚本。请在完整浏览器中打开网页地址，文件预览无法代替浏览器运行。</p></noscript>
@@ -122,6 +122,7 @@ html.chainmode-immersive body:-moz-full-screen {background:#000;}
         <label class="switch-row">EARLY / LATE<input id="early-late" type="checkbox" role="switch" checked disabled></label>
         <label class="switch-row">满血显示<input id="full-gauge" type="checkbox" role="switch" checked disabled></label>
         <label class="switch-row">低分辨率渲染<input id="low-resolution" type="checkbox" role="switch" disabled></label>
+        <label class="switch-row">兼容全屏<input id="compatibility-fullscreen" type="checkbox" role="switch" disabled></label>
         <label class="switch-row">性能检测<input id="performance-tracking" type="checkbox" role="switch" disabled></label>
         <div id="performance-options" class="performance-options" hidden>
           <label class="switch-row">显示面板<input id="performance-visible" type="checkbox" role="switch" checked disabled></label>
@@ -3634,7 +3635,8 @@ class PreviewPage {
         Object.assign(document.documentElement.style, { overflow: "hidden", overscrollBehavior: "none" });
         Object.assign(document.body.style, { overflow: "hidden", position: "fixed", width: "100%", top: `${-this.scrollBefore[1]}px`, left: `${-this.scrollBefore[0]}px` });
         this.positionOffsetY = 0; this.positionPanelOpen = false;
-        this.active = true; this.mode = "requesting"; this.orientation.begin();
+        const compatibility = !!this.options.compatibilityFullscreen;
+        this.active = true; this.mode = compatibility ? "viewport" : "requesting"; this.orientation.begin();
         document.documentElement.classList.add("chainmode-immersive");
         document.getSelection?.()?.removeAllRanges();
         this.plate.classList.add("is-immersive");
@@ -3642,8 +3644,8 @@ class PreviewPage {
         this.sync(); this.resize(true,5);
         this.exitButton.focus({ preventScroll: true });
         this.options.onChange?.(true);
-        // SimPhi requests the whole page, then independently sizes its stage.
-        this.fullscreen.open(document.body);
+        // Select the route before requesting native fullscreen. WebGL renders in either route.
+        if (!compatibility) this.fullscreen.open(document.body);
     }
     fullscreenChanged() {
         if (!this.active) return;
@@ -3733,7 +3735,8 @@ class PreviewPage {
         if (this.frame !== null) return;
         this.frame = requestAnimationFrame(() => { this.frame = null;this.applyLayout(source); });
     }
-    snapshot() { return {active:this.active, fullscreenMode:this.mode, positionOffsetY:this.positionOffsetY || 0, ...this.orientation.snapshot(), native:this.fullscreen.snapshot()}; }
+    snapshot() { return {active:this.active, fullscreenMode:this.mode, compatibilityFullscreen:!!this.options.compatibilityFullscreen,
+        positionOffsetY:this.positionOffsetY || 0, ...this.orientation.snapshot(), native:this.fullscreen.snapshot()}; }
     inputPosition(clientX, clientY) {
         const measuredAt=this.options.diagnostics?.taskStart()??-1;
         const rect=this.viewport.getBoundingClientRect();
@@ -6713,7 +6716,7 @@ const { PerformancePanel } = require("./preview-performance-panel.js");
 const { RuntimeDiagnostics } = require("./preview-runtime-diagnostics.js");
 const { shareReportFile } = require("./preview-report-share.js");
 const originalNoteColors = require("./preview-note-color.js").defaults;
-const VERSION = "0.2.10";
+const VERSION = "0.3.1";
 const elements = new Map();
 const E = id => {
     const node = elements.get(id) || document.getElementById(id);
@@ -6805,6 +6808,7 @@ async function start() {
     const earlyLate = E("early-late"), fullGauge = E("full-gauge");
     const autoPlay = E("auto-play");
     const lowResolution = E("low-resolution");
+    const compatibilityFullscreen = E("compatibility-fullscreen");
     const modeSelect = E("mode-select");
     const readyCue = E("ready-cue"), goCue = E("go-cue"), sceneButton = E("scene-toggle");
     let project = null, chart = null, activeId = "", activeAsset = null, audioContext = null;
@@ -6819,6 +6823,7 @@ async function start() {
     renderer.setTimingHints(earlyLate.checked);
     renderer.setLowResolution(preference.getItem("lowResolution") === "true");
     lowResolution.checked = renderer.lowResolution;
+    compatibilityFullscreen.checked = preference.getItem("compatibilityFullscreen") === "true";
     modeSelect.value = round.mode;
     autoPlay.checked = round.free && preference.getItem("autoPlay") === "true";
     judgment.reset(null, autoPlay.checked);
@@ -6849,13 +6854,17 @@ async function start() {
     placeSprite(sceneButton, { ...assets.scene.pauseButton, anchor: [0.5, 0.5] }, assets.atlas, assets.images, sceneHeight);
     for (const [part, id] of [["panel", "pause-panel"], ["continue", "continue"], ["retry", "retry"], ["retire", "retire"], ["ready", "ready-cue"], ["go", "go-cue"]])
         placeSprite(E(id), assets.pausePlacements[part], assets.pauseAtlas, assets.images, sceneHeight);
-    page = new StandalonePage({ pane: E("preview-pane"), main: E("preview-main"), button: E("page-fullscreen"), ratio: sceneWidth / sceneHeight, size: [sceneWidth, sceneHeight], canToggle: () => !!chart && !loading && !preparing, onChange: () => judgment.clearInput(), resize:scaleStage, diagnostics });
+    page = new StandalonePage({ pane: E("preview-pane"), main: E("preview-main"), button: E("page-fullscreen"), ratio: sceneWidth / sceneHeight, size: [sceneWidth, sceneHeight], canToggle: () => !!chart && !loading && !preparing, onChange: () => judgment.clearInput(), resize:scaleStage, diagnostics,
+        compatibilityFullscreen: compatibilityFullscreen.checked });
     if (typeof ResizeObserver === "function") {
         const observer = new ResizeObserver(()=>resize(3));
         observer.observe(viewport); observer.observe(E("preview-pane").querySelector(".preview-plate"));
     }
     window.addEventListener("resize", ()=>resize(1));
     globalThis.visualViewport?.addEventListener("resize", ()=>resize(2));
+    globalThis.visualViewport?.addEventListener("scroll", () => {
+        if (page.active && page.mode === "viewport") resize(2);
+    });
     function resetGauge() {
         const previous = records.get(recordId);
         gauge.reset(round.mode, judgment.nodes.length, judgment.halfCount, previous.queenAttempts, fullGauge.checked);
@@ -6903,7 +6912,7 @@ async function start() {
         packageInput.disabled = busy || locked;
         chartSelect.disabled = !project || busy || locked;
         modeSelect.disabled = busy || locked || importingPresets;
-        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "early-late", "performance-tracking", "performance-visible"])
+        for (const id of ["hi-speed", "music-volume", "sound-volume", "preview-rate", "preview-rate-number", "preserve-pitch", "early-late", "compatibility-fullscreen", "performance-tracking", "performance-visible"])
             E(id).disabled = busy || locked;
         lowResolution.disabled = busy || locked;
         autoPlay.disabled = fullGauge.disabled = busy || !round.free;
@@ -7369,6 +7378,17 @@ async function start() {
         return true;
     }
     lowResolution.addEventListener("change", () => setLowResolution(lowResolution.checked));
+    function setCompatibilityFullscreen(value) {
+        if (round.locked || loading || preparing) {
+            compatibilityFullscreen.checked = !!page.options.compatibilityFullscreen;
+            return false;
+        }
+        // The next fullscreen entry reads this preference, preserving the current session.
+        compatibilityFullscreen.checked = page.options.compatibilityFullscreen = !!value;
+        save("compatibilityFullscreen", compatibilityFullscreen.checked);
+        return true;
+    }
+    compatibilityFullscreen.addEventListener("change", () => setCompatibilityFullscreen(compatibilityFullscreen.checked));
     fullGauge.addEventListener("change", () => {
         if (!round.free) { fullGauge.checked = false; draw(); return; }
         renderer.setFullGauge(fullGauge.checked); gauge.force(fullGauge.checked ? 1 : 0); save("fullGauge", fullGauge.checked); draw();
@@ -7409,7 +7429,7 @@ async function start() {
             } catch(cause) { showError("无法导出性能报告。",cause); }
         }});
     globalThis.ChainPhyT = Object.freeze({
-        version: VERSION, importPackage, selectChart, importPresets, setAutoPlay, setMode, setEarlyLate, setLowResolution,
+        version: VERSION, importPackage, selectChart, importPresets, setAutoPlay, setMode, setEarlyLate, setLowResolution, setCompatibilityFullscreen,
         setPerformanceTracking(value) {
             if(round.locked||loading||preparing)return false;
             performancePanel.setEnabled(value);draw();return true;
